@@ -1204,20 +1204,8 @@ export function App() {
                     <p className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">
                       Direct Phone / Call
                     </p>
-                    <p className="text-sm sm:text-base font-semibold text-white mt-0.5">
-                      <a
-                        href="tel:+959943773771"
-                        className="hover:text-emerald-400 transition-colors"
-                      >
-                        09-943773771
-                      </a>
-                      <span className="text-slate-500 mx-1.5">/</span>
-                      <a
-                        href="tel:+959793443483"
-                        className="hover:text-emerald-400 transition-colors"
-                      >
-                        09-793443483
-                      </a>
+                    <p className="text-sm sm:text-base font-semibold text-white select-all mt-0.5">
+                      09-943773771 / 09-793443483
                     </p>
                   </div>
                 </div>
