@@ -279,6 +279,19 @@ def create_modern_docx(output_path):
 
     PROJECTS = [
         {
+            "name": "Recap Studio — AI Video & Narration Suite",
+            "context": "Flagship Project | Python, Electron.js, FastAPI, Gemini AI, Whisper, VoxCPM2, FFmpeg",
+            "github": "https://github.com/Z-Dev-Coder/recap-studio",
+            "overview": "Production-grade desktop multimedia automation platform converting raw video into comprehensive social media posting kits: automated Whisper transcription, Gemini LLM bilingual script generation (English & Burmese), intelligent FFmpeg highlight cuts, and zero-cost VoxCPM2 neural voice cloning.",
+            "deliverables": [
+                "Architected modular multi-process desktop app with Electron.js IPC, global Windows hotkeys, and Python FastAPI backend.",
+                "Integrated faster-whisper speech-to-text transcription with Gemini API prompt engineering for bilingual script beats and hashtags.",
+                "Engineered automated FFmpeg multimedia pipeline: highlight cutting, audio ducking, subtitle retiming, and ranked frame thumbnails.",
+                "Deployed self-hosted VoxCPM2 neural voice cloning model with CUDA PyTorch acceleration for zero-cloud-cost narration synthesis."
+            ],
+            "tags": "Python 3.12 | Electron.js | FastAPI | Gemini AI | Whisper | VoxCPM2 | FFmpeg | PyTorch"
+        },
+        {
             "name": "JumpStart AI-Supported Chatbot",
             "context": "HDSE Capstone Project | Python, Django, LangGraph, pgvector, WebSockets",
             "github": "https://github.com/Z-Dev-Coder/JumpStart-AI-Supported-Chatbot",

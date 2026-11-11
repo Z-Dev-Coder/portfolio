@@ -21,7 +21,7 @@ Official developer portfolio of **Zaw Myo Tun** — Junior Software Developer & 
   - **Interactive Hero & Status**: Live career availability badge (`Available for Junior Developer & AI Engineering Roles`), portrait card with ambient glow, and key impact metrics.
   - **Infinite Marquee Tech Ticker**: Continuous animated tape displaying modern backend, AI, and frontend tools.
   - **Categorized Technical Arsenal**: 4 structured domain cards grouping AI/Agents, Backend Engineering, Frontend & Mobile, and SDLC practices.
-  - **Interactive Project Filtering**: Live filtering tabs (`All`, `AI & Agents`, `Full Stack`, `Frontend / Mobile`) linking directly to GitHub repositories and live demos.
+  - **Interactive Project Filtering**: Live filtering tabs (`All`, `AI & Agents`, `Full Stack`, `Frontend / Mobile`) showcasing flagship systems like **Recap Studio** (AI video automation & voice cloning suite) and **JumpStart** (LangGraph RAG customer support system).
   - **Academic & Transferable Background**: Dual-column timeline highlighting Higher National Diploma (Merit), ongoing BSc in Computing, and engineering discipline from site engineering and customer relations.
   - **Verified Resume Center**: Direct download for the ATS-compliant Word Document (`Zaw_Myo_Tun_Portfolio.docx`).
   - **Interactive Contact Box**: Click-to-copy email button with animated checkmark, toast feedback, and direct email client integration.

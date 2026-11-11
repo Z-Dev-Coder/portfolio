@@ -59,6 +59,25 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
+    id: 'recap-studio',
+    title: 'Recap Studio — AI Video & Narration Suite',
+    category: 'ai',
+    badge: 'Flagship AI Suite',
+    badgeColor: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+    subtitle: 'Automated Video Summarization, Bilingual Scripting & Voice Cloning Suite',
+    description:
+      'Production-grade desktop multimedia automation platform converting raw video into comprehensive social media posting kits: automated Whisper transcription, Gemini LLM bilingual script generation (English & Burmese), intelligent FFmpeg highlight cuts, and zero-cost VoxCPM2 neural voice cloning.',
+    highlights: [
+      'Multi-process desktop architecture: Electron.js frontend + Python FastAPI microservice',
+      'Faster-Whisper STT transcription & Gemini AI bilingual script generation (English & Burmese)',
+      'Automated FFmpeg multimedia pipeline: video slicing, audio ducking, and burnt subtitles',
+      'Self-hosted VoxCPM2 neural voice cloning with CUDA PyTorch acceleration ($0 cloud cost)',
+    ],
+    tags: ['Python 3.12', 'Electron.js', 'FastAPI', 'Gemini AI', 'Whisper', 'VoxCPM2', 'FFmpeg', 'PyTorch'],
+    githubUrl: 'https://github.com/Z-Dev-Coder/recap-studio',
+    accent: 'from-purple-500/30 via-pink-500/20 to-transparent',
+  },
+  {
     id: 'jumpstart',
     title: 'JumpStart AI Support Chatbot',
     category: 'ai',
@@ -532,7 +551,7 @@ export function App() {
           <ScrollReveal direction="up" delay={150}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-8 border-t border-slate-800/80">
               <div className="glass-panel p-5 rounded-2xl border border-slate-800/80 hover:border-sky-500/40 transition-colors">
-                <div className="text-3xl sm:text-4xl font-extrabold text-white">6+</div>
+                <div className="text-3xl sm:text-4xl font-extrabold text-white">7+</div>
                 <div className="text-xs text-slate-400 mt-1 font-medium">Software & AI Projects</div>
               </div>
               <div className="glass-panel p-5 rounded-2xl border border-slate-800/80 hover:border-indigo-500/40 transition-colors">

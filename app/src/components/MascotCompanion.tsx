@@ -3,6 +3,7 @@ import { MessageSquare, X, ChevronRight } from 'lucide-react';
 
 const MASCOT_QUOTES = [
   "Hi! I'm Byte, Zaw's AI companion. Welcome to the portfolio! 👋",
+  "Check out Recap Studio! Zaw's flagship AI video suite with Whisper STT & voice cloning! 🎬",
   "Did you know? Zaw engineered JumpStart using LangGraph & pgvector RAG!",
   "Zaw is currently seeking Junior Software Developer & AI roles! 🚀",
   "Try the category filters to explore full-stack, AI, and mobile projects!",
