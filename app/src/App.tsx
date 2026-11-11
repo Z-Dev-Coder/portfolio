@@ -1162,84 +1162,63 @@ export function App() {
             </div>
 
             <div className="glass-panel p-6 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Email Contact Box */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between gap-4 transition-colors hover:border-sky-500/40 overflow-hidden">
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-11 h-11 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0 mt-0.5">
+                <div className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-4 transition-colors hover:border-sky-500/40">
+                  <div className="flex items-center gap-3.5 min-w-0">
+                    <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0">
                       <Mail className="w-5 h-5" />
                     </div>
-                    <div className="min-w-0 flex-1 text-left">
+                    <div className="min-w-0 text-left">
                       <p className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">
                         Direct Email Address
                       </p>
-                      <p className="text-sm sm:text-base font-semibold text-white break-all select-all mt-0.5">
+                      <a
+                        href="mailto:zawmyotun.kl@gmail.com"
+                        className="text-sm sm:text-base font-semibold text-white hover:text-sky-400 transition-colors truncate block mt-0.5"
+                      >
                         zawmyotun.kl@gmail.com
-                      </p>
+                      </a>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-3 border-t border-slate-800/80">
-                    <button
-                      onClick={handleCopyEmail}
-                      disabled={clipboard.isCopying}
-                      data-testid="copy-email-button"
-                      data-copy-state={clipboard.status}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition-all active:scale-95 disabled:opacity-50"
-                    >
-                      {clipboard.isCopied ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          Copied!
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5 text-slate-400" />
-                          Copy Email
-                        </>
-                      )}
-                    </button>
-                    <a
-                      href="mailto:zawmyotun.kl@gmail.com"
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-md shadow-blue-500/20 transition-all hover:scale-[1.02]"
-                    >
-                      <Mail className="w-3.5 h-3.5" />
-                      Send Mail
-                    </a>
-                  </div>
+                  <button
+                    onClick={handleCopyEmail}
+                    title="Copy email to clipboard"
+                    className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/80 transition-all shrink-0 active:scale-95"
+                  >
+                    {clipboard.isCopied ? (
+                      <Check className="w-4 h-4 text-emerald-400" />
+                    ) : (
+                      <Copy className="w-4 h-4 text-slate-400 hover:text-white" />
+                    )}
+                  </button>
                 </div>
 
                 {/* Direct Phone Contact Box */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between gap-4 transition-colors hover:border-emerald-500/40 overflow-hidden">
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <div className="min-w-0 flex-1 text-left">
-                      <p className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">
-                        Direct Phone / Call
-                      </p>
-                      <p className="text-sm sm:text-base font-semibold text-white break-words select-all mt-0.5">
-                        09-943773771 / 09-793443483
-                      </p>
-                    </div>
+                <div className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center gap-3.5 transition-colors hover:border-emerald-500/40">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+                    <Phone className="w-5 h-5" />
                   </div>
-
-                  <div className="flex items-center gap-2 pt-3 border-t border-slate-800/80">
-                    <a
-                      href="tel:+959943773771"
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-300 border border-emerald-500/30 transition-all"
-                    >
-                      <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                      Line 1
-                    </a>
-                    <a
-                      href="tel:+959793443483"
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition-all"
-                    >
-                      <Phone className="w-3.5 h-3.5 text-slate-400" />
-                      Line 2
-                    </a>
+                  <div className="min-w-0 text-left">
+                    <p className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">
+                      Direct Phone / Call
+                    </p>
+                    <p className="text-sm sm:text-base font-semibold text-white mt-0.5">
+                      <a
+                        href="tel:+959943773771"
+                        className="hover:text-emerald-400 transition-colors"
+                      >
+                        09-943773771
+                      </a>
+                      <span className="text-slate-500 mx-1.5">/</span>
+                      <a
+                        href="tel:+959793443483"
+                        className="hover:text-emerald-400 transition-colors"
+                      >
+                        09-793443483
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>
