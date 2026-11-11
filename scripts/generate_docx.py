@@ -180,7 +180,7 @@ def create_modern_docx(output_path):
         "and actively progressing toward a BSc (Hons) in Computing. Core expertise in architecting robust backend systems with Python and Django, "
         "engineering agentic AI systems using LangGraph and PostgreSQL pgvector RAG pipelines, and creating modern responsive interfaces. "
         "Leverages a rigorous engineering mindset developed from physical construction site management to deliver dependable, deadline-driven code "
-        "through collaborative Agile/Scrum sprints and accelerated AI-assisted workflows (VibeCoding)."
+        "through collaborative Agile/Scrum sprints and accelerated AI-assisted software engineering workflows."
     )
     r_sum_text.font.size = Pt(9.5)
     r_sum_text.font.color.rgb = COLOR_BODY
@@ -233,7 +233,7 @@ def create_modern_docx(output_path):
                 ("Agile / Scrum Methodologies", "Jira sprint cycles, standups, burn-down tracking"),
                 ("Version Control", "Git, GitHub branch policies, code hygiene & PRs"),
                 ("Software Architecture", "SRS, SDD, UML class/sequence diagrams & ERDs"),
-                ("AI-Driven Velocity", "Accelerated prototyping & quality auditing (VibeCoding)")
+                ("AI-Driven Velocity", "Accelerated prototyping, modern developer tooling & quality auditing")
             ]
         )
     ]
