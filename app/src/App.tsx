@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ExternalLink,
   Mail,
@@ -27,6 +27,8 @@ import {
 import { ParticleBackground } from './components/ParticleBackground';
 import { ScrollReveal, ScrollProgressBar } from './components/ScrollReveal';
 import { MascotCompanion } from './components/MascotCompanion';
+import { useToastMachine } from './machines/useToastMachine';
+import { useClipboardMachine } from './machines/useClipboardMachine';
 
 // GitHub icon SVG component
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
@@ -268,20 +270,28 @@ const SKILL_CATEGORIES = [
 
 export function App() {
   const [activeTab, setActiveTab] = useState<'all' | 'ai' | 'backend' | 'frontend'>('all');
-  const [copiedEmail, setCopiedEmail] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toast = useToastMachine(3200);
+  const clipboard = useClipboardMachine(2400);
 
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
+  // Keyboard accessibility: Escape closes mobile drawer
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText('zawmyotun.kl@gmail.com');
-    setCopiedEmail(true);
-    showToast('Email address copied to clipboard!');
-    setTimeout(() => setCopiedEmail(false), 2500);
+  const handleCopyEmail = async () => {
+    const ok = await clipboard.copy('zawmyotun.kl@gmail.com');
+    if (ok) {
+      toast.show('Email address copied to clipboard!', 'success');
+    } else {
+      toast.show('Could not copy automatically. Please copy manually.', 'error');
+    }
   };
 
   const filteredProjects =
@@ -300,11 +310,39 @@ export function App() {
       {/* Floating Mascot Companion */}
       <MascotCompanion />
 
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed bottom-6 left-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900/95 border border-slate-700/80 text-white shadow-2xl backdrop-blur-md animate-fade-in">
-          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <p className="text-sm font-medium">{toastMessage}</p>
+      {/* Timer-Safe Toast State Machine Notification */}
+      {toast.isVisible && (
+        <div
+          data-testid="toast-notification"
+          data-toast-state={toast.state.status}
+          data-toast-type={toast.state.type}
+          role="status"
+          aria-live="polite"
+          className={`fixed bottom-6 left-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900/95 border text-white shadow-2xl backdrop-blur-md transition-all duration-200 ${
+            toast.state.type === 'error'
+              ? 'border-rose-500/80 text-rose-200'
+              : toast.state.type === 'success'
+              ? 'border-emerald-500/80'
+              : 'border-slate-700/80'
+          } ${toast.state.status === 'dismissing' ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}
+        >
+          <div
+            className={`w-2 h-2 rounded-full ${
+              toast.state.type === 'error'
+                ? 'bg-rose-400'
+                : toast.state.type === 'success'
+                ? 'bg-emerald-400 animate-ping'
+                : 'bg-sky-400 animate-ping'
+            }`}
+          />
+          <p className="text-sm font-medium">{toast.state.message}</p>
+          <button
+            onClick={toast.dismiss}
+            className="ml-2 p-0.5 rounded text-slate-400 hover:text-white"
+            aria-label="Dismiss notification"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
         </div>
       )}
 
@@ -358,7 +396,7 @@ export function App() {
             <a
               href="./Zaw_Myo_Tun_Portfolio.docx"
               download="Zaw_Myo_Tun_Portfolio.docx"
-              onClick={() => showToast('Downloading Resume (DOCX)...')}
+              onClick={() => toast.show('Downloading Resume (DOCX)...', 'info')}
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/70 text-slate-200 transition-all shadow-sm"
             >
               <Download className="w-3.5 h-3.5 text-sky-400" />
@@ -375,7 +413,10 @@ export function App() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation-drawer"
+            data-testid="mobile-menu-toggle"
+            className="md:hidden p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -384,7 +425,12 @@ export function App() {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="mt-2 glass-panel rounded-2xl p-4 flex flex-col gap-3 shadow-2xl md:hidden animate-fade-in border border-slate-800">
+          <div
+            id="mobile-navigation-drawer"
+            data-testid="mobile-menu-drawer"
+            data-state="open"
+            className="mt-2 glass-panel rounded-2xl p-4 flex flex-col gap-3 shadow-2xl md:hidden animate-fade-in border border-slate-800"
+          >
             <a
               href="#about"
               onClick={() => setMobileMenuOpen(false)}
@@ -431,7 +477,7 @@ export function App() {
               <a
                 href="./Zaw_Myo_Tun_Portfolio.docx"
                 download="Zaw_Myo_Tun_Portfolio.docx"
-                onClick={() => showToast('Downloading Resume (DOCX)...')}
+                onClick={() => toast.show('Downloading Resume (DOCX)...', 'info')}
                 className="block text-center py-2.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white"
               >
                 Download Resume (DOCX)
@@ -483,7 +529,7 @@ export function App() {
                   <a
                     href="./Zaw_Myo_Tun_Portfolio.docx"
                     download="Zaw_Myo_Tun_Portfolio.docx"
-                    onClick={() => showToast('Downloading Resume (DOCX)...')}
+                    onClick={() => toast.show('Downloading Resume (DOCX)...', 'info')}
                     className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700/80 text-slate-200 transition-all hover:border-slate-500"
                   >
                     <Download className="w-4 h-4 text-sky-400" />
@@ -762,6 +808,10 @@ export function App() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
+                    data-testid={`filter-tab-${tab.id}`}
+                    data-filter-tab={tab.id}
+                    data-active={activeTab === tab.id}
+                    aria-pressed={activeTab === tab.id}
                     className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${
                       activeTab === tab.id
                         ? 'bg-blue-600 text-white shadow-md'
@@ -780,6 +830,9 @@ export function App() {
             {filteredProjects.map((project, pIdx) => (
               <ScrollReveal key={project.id} direction="up" delay={(pIdx % 2) * 100}>
                 <div
+                  data-testid={`project-card-${project.id}`}
+                  data-project-id={project.id}
+                  data-project-category={project.category}
                   className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-7 border border-slate-800/90 flex flex-col justify-between relative overflow-hidden group h-full"
                 >
                   {/* Subtle card top gradient accent */}
@@ -1016,7 +1069,7 @@ export function App() {
                   <a
                     href="./Zaw_Myo_Tun_Portfolio.docx"
                     download="Zaw_Myo_Tun_Portfolio.docx"
-                    onClick={() => showToast('Downloading Verified Resume (DOCX)...')}
+                    onClick={() => toast.show('Downloading Verified Resume (DOCX)...', 'info')}
                     className="w-full sm:w-80 p-6 rounded-2xl bg-gradient-to-br from-slate-900/95 to-slate-850/95 hover:from-slate-800 hover:to-slate-750 border border-slate-700/80 hover:border-sky-500/60 transition-all flex items-center justify-between group shadow-xl hover:scale-[1.02]"
                   >
                     <div className="flex items-center gap-4">
@@ -1074,13 +1127,21 @@ export function App() {
 
                 <div className="flex items-center gap-2.5 w-full sm:w-auto">
                   <button
-                    onClick={copyEmail}
-                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition-all active:scale-95"
+                    onClick={handleCopyEmail}
+                    disabled={clipboard.isCopying}
+                    data-testid="copy-email-button"
+                    data-copy-state={clipboard.status}
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition-all active:scale-95 disabled:opacity-50"
                   >
-                    {copiedEmail ? (
+                    {clipboard.isCopied ? (
                       <>
                         <Check className="w-4 h-4 text-emerald-400" />
                         Copied!
+                      </>
+                    ) : clipboard.isError ? (
+                      <>
+                        <Copy className="w-4 h-4 text-rose-400" />
+                        Copy Failed
                       </>
                     ) : (
                       <>

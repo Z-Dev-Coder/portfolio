@@ -1,72 +1,72 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { MessageSquare, X, ChevronRight } from 'lucide-react';
-
-const MASCOT_QUOTES = [
-  "Hi! I'm Byte, Zaw's AI companion. Welcome to the portfolio! 👋",
-  "Check out Recap Studio! Zaw's flagship AI video suite with Whisper STT & voice cloning! 🎬",
-  "Did you know? Zaw engineered JumpStart using LangGraph & pgvector RAG!",
-  "Zaw is currently seeking Junior Software Developer & AI roles! 🚀",
-  "Try the category filters to explore full-stack, AI, and mobile projects!",
-  "100% Scrum sprint delivery track record in a 5-member Agile team! 🏆",
-  "Zaw loves AI-assisted engineering (VibeCoding) for 5x delivery speed! ⚡",
-];
+import { useMascotMachine } from '../machines/useMascotMachine';
 
 export function MascotCompanion() {
-  const [quoteIndex, setQuoteIndex] = useState(0);
-  const [isWaving, setIsWaving] = useState(true);
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [eyeState, setEyeState] = useState<'normal' | 'wink' | 'happy'>('normal');
+  const mascot = useMascotMachine();
 
-  // Rotate quotes periodically
+  // Accessibility: press Escape to minimize speech bubble
   useEffect(() => {
-    const interval = setInterval(() => {
-      setQuoteIndex((prev) => (prev + 1) % MASCOT_QUOTES.length);
-      // Trigger a happy wink every minute
-      setEyeState('wink');
-      setTimeout(() => setEyeState('normal'), 800);
-    }, 12000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleMascotClick = () => {
-    setIsWaving(true);
-    setEyeState('happy');
-    setQuoteIndex((prev) => (prev + 1) % MASCOT_QUOTES.length);
-    setTimeout(() => {
-      setEyeState('normal');
-      setIsWaving(false);
-    }, 1200);
-  };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !mascot.isMinimized) {
+        mascot.minimize();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mascot]);
 
   return (
-    <aside aria-label="Interactive AI Assistant Mascot" className="fixed bottom-5 right-5 z-40 flex flex-col items-end select-none">
+    <aside
+      aria-label="Interactive AI Assistant Mascot"
+      data-testid="mascot-companion"
+      data-mascot-mode={mascot.mode}
+      data-mascot-mood={mascot.mood}
+      data-mascot-quote-index={mascot.quoteIndex}
+      className="fixed bottom-5 right-5 z-40 flex flex-col items-end select-none"
+    >
       {/* Speech Bubble */}
-      {!isMinimized && (
-        <div className="mb-2 max-w-xs p-3.5 rounded-2xl bg-slate-900/95 border border-slate-700/80 shadow-2xl backdrop-blur-xl text-left animate-fade-in relative group">
+      {!mascot.isMinimized && (
+        <div
+          data-testid="mascot-speech-bubble"
+          role="status"
+          aria-live="polite"
+          className="mb-2 max-w-xs p-3.5 rounded-2xl bg-slate-900/95 border border-slate-700/80 shadow-2xl backdrop-blur-xl text-left animate-fade-in relative group"
+        >
           <div className="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-800">
             <span className="text-[11px] font-mono font-bold text-sky-400 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  mascot.mood === 'celebrating'
+                    ? 'bg-purple-400 animate-ping'
+                    : mascot.mood === 'waving'
+                    ? 'bg-sky-400 animate-pulse'
+                    : 'bg-emerald-400 animate-pulse'
+                }`}
+              />
               Byte · AI Companion
             </span>
             <div className="flex items-center gap-1">
               <button
-                onClick={() => setQuoteIndex((prev) => (prev + 1) % MASCOT_QUOTES.length)}
-                className="p-1 rounded-md text-slate-400 hover:text-slate-200 hover:bg-slate-800 text-[10px] flex items-center"
+                onClick={mascot.nextQuote}
+                className="p-1 rounded-md text-slate-400 hover:text-slate-200 hover:bg-slate-800 text-[10px] flex items-center transition-colors"
                 title="Next message"
+                aria-label="Next tip"
               >
                 <ChevronRight className="w-3 h-3" />
               </button>
               <button
-                onClick={() => setIsMinimized(true)}
-                className="p-1 rounded-md text-slate-400 hover:text-slate-200 hover:bg-slate-800 text-[10px]"
+                onClick={mascot.minimize}
+                className="p-1 rounded-md text-slate-400 hover:text-slate-200 hover:bg-slate-800 text-[10px] transition-colors"
                 title="Minimize assistant"
+                aria-label="Minimize Byte assistant"
               >
                 <X className="w-3 h-3" />
               </button>
             </div>
           </div>
           <p className="text-xs text-slate-200 leading-relaxed font-sans">
-            {MASCOT_QUOTES[quoteIndex]}
+            {mascot.quote}
           </p>
 
           {/* Speech bubble pointer arrow */}
@@ -76,10 +76,12 @@ export function MascotCompanion() {
 
       {/* Mascot Robot Figure */}
       <div className="flex items-center gap-2">
-        {isMinimized && (
+        {mascot.isMinimized && (
           <button
-            onClick={() => setIsMinimized(false)}
-            className="px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 text-xs font-medium text-sky-300 shadow-xl backdrop-blur-md flex items-center gap-1.5 hover:bg-slate-800 transition-all animate-bounce"
+            onClick={mascot.expand}
+            data-testid="mascot-expand-button"
+            className="px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 text-xs font-medium text-sky-300 shadow-xl backdrop-blur-md flex items-center gap-1.5 hover:bg-slate-800 hover:scale-105 transition-all animate-fade-in"
+            aria-label="Expand Byte AI assistant"
           >
             <MessageSquare className="w-3.5 h-3.5 text-sky-400" />
             Talk to Byte
@@ -87,18 +89,35 @@ export function MascotCompanion() {
         )}
 
         <div
-          onClick={handleMascotClick}
-          className="relative cursor-pointer group hover:scale-105 active:scale-95 transition-all duration-300"
+          onClick={mascot.handleClick}
+          data-testid="mascot-avatar"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              mascot.handleClick();
+            }
+          }}
+          className="relative cursor-pointer group hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-full"
           title="Click to interact with Byte!"
+          aria-label="Interactive robot mascot Byte. Click to interact."
         >
           {/* Subtle ambient halo glow */}
-          <div className="absolute -inset-2 bg-gradient-to-tr from-sky-500/30 to-indigo-500/30 rounded-full blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
+          <div
+            className={`absolute -inset-2 bg-gradient-to-tr ${
+              mascot.mood === 'celebrating'
+                ? 'from-purple-500/50 to-pink-500/50'
+                : 'from-sky-500/30 to-indigo-500/30'
+            } rounded-full blur-md opacity-60 group-hover:opacity-100 transition-opacity`}
+          />
 
           {/* SVG Robot Character */}
           <div className="relative w-16 h-16 sm:w-18 sm:h-18 p-1">
             <svg
               viewBox="0 0 100 100"
-              className="w-full h-full drop-shadow-xl animate-mascot-float"
+              className={`w-full h-full drop-shadow-xl ${
+                mascot.mood === 'celebrating' ? 'scale-110 transition-transform' : 'animate-mascot-float'
+              }`}
             >
               <defs>
                 <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -112,11 +131,6 @@ export function MascotCompanion() {
                   <stop offset="100%" stopColor="#020617" />
                 </linearGradient>
 
-                <linearGradient id="cyanGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#38bdf8" />
-                  <stop offset="100%" stopColor="#0284c7" />
-                </linearGradient>
-
                 <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                   <feGaussianBlur stdDeviation="2" result="blur" />
                   <feComposite in="SourceGraphic" in2="blur" operator="over" />
@@ -125,7 +139,13 @@ export function MascotCompanion() {
 
               {/* Antenna */}
               <line x1="50" y1="20" x2="50" y2="8" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-              <circle cx="50" cy="7" r="4.5" fill="#38bdf8" filter="url(#glow)">
+              <circle
+                cx="50"
+                cy="7"
+                r="4.5"
+                fill={mascot.mood === 'celebrating' ? '#c084fc' : '#38bdf8'}
+                filter="url(#glow)"
+              >
                 <animate
                   attributeName="r"
                   values="4;5.5;4"
@@ -165,7 +185,7 @@ export function MascotCompanion() {
               />
 
               {/* Eyes Expression */}
-              {eyeState === 'normal' && (
+              {mascot.eyeState === 'normal' && (
                 <g>
                   {/* Left Eye */}
                   <rect x="36" y="33" width="7" height="11" rx="3.5" fill="#38bdf8" filter="url(#glow)">
@@ -178,7 +198,7 @@ export function MascotCompanion() {
                 </g>
               )}
 
-              {eyeState === 'wink' && (
+              {mascot.eyeState === 'wink' && (
                 <g>
                   {/* Left Eye Winking Arch */}
                   <path d="M 35 38 Q 40 33 45 38" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" filter="url(#glow)" />
@@ -187,17 +207,17 @@ export function MascotCompanion() {
                 </g>
               )}
 
-              {eyeState === 'happy' && (
+              {mascot.eyeState === 'happy' && (
                 <g>
                   {/* Happy Inverted Arches */}
-                  <path d="M 34 39 Q 39.5 31 45 39" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" filter="url(#glow)" />
-                  <path d="M 55 39 Q 60.5 31 66 39" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" filter="url(#glow)" />
+                  <path d="M 34 39 Q 39.5 31 45 39" fill="none" stroke="#c084fc" strokeWidth="2.5" strokeLinecap="round" filter="url(#glow)" />
+                  <path d="M 55 39 Q 60.5 31 66 39" fill="none" stroke="#c084fc" strokeWidth="2.5" strokeLinecap="round" filter="url(#glow)" />
                 </g>
               )}
 
               {/* Cute Cheek Blushes */}
-              <circle cx="33" cy="46" r="3" fill="#ec4899" opacity="0.4" />
-              <circle cx="67" cy="46" r="3" fill="#ec4899" opacity="0.4" />
+              <circle cx="33" cy="46" r="3" fill="#ec4899" opacity="0.45" />
+              <circle cx="67" cy="46" r="3" fill="#ec4899" opacity="0.45" />
 
               {/* Body */}
               <path
@@ -208,7 +228,7 @@ export function MascotCompanion() {
               />
 
               {/* Core Arc Reactor Light */}
-              <circle cx="50" cy="71" r="5" fill="#38bdf8" filter="url(#glow)">
+              <circle cx="50" cy="71" r="5" fill={mascot.mood === 'celebrating' ? '#c084fc' : '#38bdf8'} filter="url(#glow)">
                 <animate
                   attributeName="opacity"
                   values="0.6;1;0.6"
@@ -238,12 +258,12 @@ export function MascotCompanion() {
 
               {/* Right Arm (Waving!) */}
               <path
-                d={isWaving ? "M 72 65 Q 86 52 82 40" : "M 72 65 Q 82 70 80 78"}
+                d={mascot.isWaving ? "M 72 65 Q 86 52 82 40" : "M 72 65 Q 82 70 80 78"}
                 fill="none"
                 stroke="#94a3b8"
                 strokeWidth="4"
                 strokeLinecap="round"
-                className={isWaving ? "animate-arm-wave origin-[72px_65px]" : ""}
+                className={mascot.isWaving ? "animate-arm-wave origin-[72px_65px]" : ""}
               />
             </svg>
           </div>
