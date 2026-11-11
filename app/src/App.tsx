@@ -212,7 +212,7 @@ const SKILL_CATEGORIES = [
       { name: 'pgvector / Vector DBs', level: 'Proficient' },
       { name: 'Ollama / Local LLMs', level: 'Proficient' },
       { name: 'Prompt Engineering', level: 'Advanced' },
-      { name: 'AI-Assisted Dev (VibeCoding)', level: 'Expert' },
+      { name: 'AI-Assisted Engineering', level: 'Expert' },
     ],
   },
   {
@@ -513,7 +513,7 @@ export function App() {
 
                 {/* Bio summary */}
                 <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-                  Graduated with <strong className="text-white">Merit in Higher National Diploma in Software Engineering</strong> and currently advancing to a <strong className="text-white">BSc in Computing</strong>. I specialize in building robust backend architectures with <span className="text-sky-400 font-medium">Python & Django</span>, intelligent multi-agent pipelines with <span className="text-indigo-400 font-medium">LangGraph & RAG</span>, and modern interactive web experiences through disciplined <span className="text-emerald-400 font-medium">AI-assisted Agile development (VibeCoding)</span>.
+                  Graduated with <strong className="text-white">Merit in Higher National Diploma in Software Engineering</strong> and currently advancing to a <strong className="text-white">BSc in Computing</strong>. I specialize in building robust backend architectures with <span className="text-sky-400 font-medium">Python & Django</span>, intelligent multi-agent pipelines with <span className="text-indigo-400 font-medium">LangGraph & RAG</span>, and modern interactive web experiences through disciplined <span className="text-emerald-400 font-medium">AI-assisted engineering and rapid prototyping</span>.
                 </p>
 
                 {/* Action Buttons */}
@@ -586,7 +586,7 @@ export function App() {
 
                   <div className="absolute -bottom-3 -left-3 px-3 py-1.5 rounded-xl bg-slate-900/95 border border-slate-700/80 text-xs font-medium text-emerald-300 shadow-xl flex items-center gap-1.5 backdrop-blur-md">
                     <Zap className="w-3.5 h-3.5 text-emerald-400" />
-                    Agile / VibeCoding
+                    Agile / Rapid Delivery
                   </div>
                 </div>
               </div>
@@ -639,7 +639,7 @@ export function App() {
             <span className="text-slate-600">/</span>
             <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Agile Scrum</span>
             <span className="text-slate-600">/</span>
-            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>VibeCoding</span>
+            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>AI Workflows</span>
             <span className="text-slate-600">/</span>
 
             {/* Duplicate for seamless infinite loop */}
@@ -663,7 +663,7 @@ export function App() {
             <span className="text-slate-600">/</span>
             <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Agile Scrum</span>
             <span className="text-slate-600">/</span>
-            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>VibeCoding</span>
+            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>AI Workflows</span>
             <span className="text-slate-600">/</span>
           </div>
         </section>
@@ -716,7 +716,7 @@ export function App() {
                 </div>
                 <h3 className="text-lg font-semibold text-white">Agile & AI-Driven Delivery</h3>
                 <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                  Proven experience in 5-member Agile Scrum teams delivering high-impact sprints, paired with rapid iteration using modern AI developer tooling ("VibeCoding") for 5x delivery velocity.
+                  Proven experience in 5-member Agile Scrum teams delivering high-impact sprints, paired with rapid iteration using modern AI developer tooling and accelerated engineering workflows for exceptional delivery velocity.
                 </p>
               </div>
             </ScrollReveal>
