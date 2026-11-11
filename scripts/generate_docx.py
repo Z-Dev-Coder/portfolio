@@ -459,7 +459,7 @@ def create_modern_docx(output_path):
     # --- EDUCATION & ACADEMIC CREDENTIALS ---
     add_section_header("Education & Academic Qualifications")
 
-    edu_tbl = doc.add_table(rows=2, cols=1)
+    edu_tbl = doc.add_table(rows=3, cols=1)
     edu_tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
     edu_tbl.columns[0].width = Inches(7.1)
 
@@ -468,13 +468,19 @@ def create_modern_docx(output_path):
             "BSc (Hons) in Computing",
             "EduCLaaS Academy",
             "2025 — Present  (In Progress)",
-            "Advanced curriculum focusing on distributed systems architecture, enterprise software engineering, and modern machine learning concepts."
+            "Advanced curriculum focusing on software architecture, distributed systems, machine learning fundamentals, and enterprise computing systems."
         ),
         (
             "Higher National Diploma in Software Engineering (HDSE)",
             "EduCLaaS Academy",
-            "2023 — 2025  (Graduated with Merit)",
+            "2024 — Aug 2026  (Graduated with Merit)",
             "Comprehensive training in Object-Oriented Programming (Java, Python), Relational Databases (SQL), Web Development (Django), Mobile Applications (Android), and Agile Scrum Project Management."
+        ),
+        (
+            "Civil & Structural Engineering",
+            "Technological University, Myanmar",
+            "2014 — 2020  (Coursework Completed Through Final Year 1st Sem)",
+            "Five+ years of rigorous training in engineering mathematics, structural mechanics, and analytical problem-solving completed prior to software transition."
         )
     ]
 
@@ -523,15 +529,15 @@ def create_modern_docx(output_path):
     exps = [
         (
             "Site Engineer",
-            "Myat Min Construction",
-            "Engineering Oversight & Quality Assurance",
+            "Innovate Myanmar Forward & AM Construction",
+            "2018 — 2021  (Engineering Oversight & QA)",
             "Supervised physical construction blueprint adherence, conducted daily quality assurance checks, and coordinated schedules across multi-trade teams. Instilled strict problem-solving discipline and structural thinking directly transferable to software architecture."
         ),
         (
-            "Senior Sales Executive & Project Lead",
-            "Family Retail Business",
-            "Stakeholder Relations & Problem Resolution",
-            "Directed client relationship workflows, resolved customer challenges, and tracked inventory velocity. Developed high user empathy, active listening, and practical value-driven communication."
+            "Technical Sales & Customer Relations",
+            "Power Used Laptop Sales & Shin Shin",
+            "2013–2014, 2021–2022  (Customer Empathy & Communication)",
+            "Advised clients on computer hardware and laptop specifications, resolved customer inquiries, and managed inventory turnover. Developed active listening, stakeholder empathy, and practical user-first communication."
         )
     ]
 

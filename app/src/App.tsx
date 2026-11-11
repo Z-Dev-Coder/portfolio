@@ -262,7 +262,7 @@ const SKILL_CATEGORIES = [
       { name: 'Agile & Scrum Sprints', level: 'Proficient' },
       { name: 'System Documentation & SDD', level: 'Advanced' },
       { name: 'Unit Testing & Debugging', level: 'Proficient' },
-      { name: 'Docker Fundamentals', level: 'Intermediate' },
+      { name: 'Groq & Cloud LLM APIs', level: 'Proficient' },
       { name: 'Jira / Project Tracking', level: 'Proficient' },
     ],
   },
@@ -961,7 +961,7 @@ export function App() {
                   <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-indigo-500">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-xs font-mono text-indigo-400 font-semibold uppercase">
-                        2023 — 2025
+                        2024 — Aug 2026
                       </span>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">
                         Merit Awarded
@@ -970,9 +970,28 @@ export function App() {
                     <h4 className="text-base font-bold text-white mt-1">
                       Higher National Diploma in Software Engineering (HDSE)
                     </h4>
-                    <p className="text-xs text-slate-400">EduCLaaS Academy</p>
+                    <p className="text-xs text-slate-400">EduCLaaS Academy, Myanmar</p>
                     <p className="text-xs text-slate-300 mt-3 leading-relaxed">
                       Intensive coursework in Object-Oriented Programming (Java, Python), Relational Database Management, Web Application Development (Django), Mobile Application Development (Android), Agile Scrum Project Management, and Software Design Documentation.
+                    </p>
+                  </div>
+
+                  {/* Degree 3 */}
+                  <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-purple-500">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-mono text-purple-400 font-semibold uppercase">
+                        2014 — 2020
+                      </span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
+                        Coursework Completed
+                      </span>
+                    </div>
+                    <h4 className="text-base font-bold text-white mt-1">
+                      Civil & Structural Engineering
+                    </h4>
+                    <p className="text-xs text-slate-400">Technological University, Myanmar</p>
+                    <p className="text-xs text-slate-300 mt-3 leading-relaxed">
+                      Rigorous foundation in engineering mathematics, structural mechanics, and analytical systems problem-solving completed through final-year first semester before transitioning to software engineering.
                     </p>
                   </div>
                 </div>
@@ -997,16 +1016,16 @@ export function App() {
                   <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-emerald-500">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-xs font-mono text-emerald-400 font-semibold uppercase">
-                        Engineering Coordination
+                        2018 — 2021
                       </span>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
-                        Technical Oversight
+                        Engineering Oversight
                       </span>
                     </div>
                     <h4 className="text-base font-bold text-white mt-1">Site Engineer</h4>
-                    <p className="text-xs text-slate-400">Myat Min Construction</p>
+                    <p className="text-xs text-slate-400">Innovate Myanmar Forward & AM Construction</p>
                     <p className="text-xs text-slate-300 mt-3 leading-relaxed">
-                      Managed physical engineering blueprint compliance, conducted daily quality assurance checks, and coordinated multi-trade contractor schedules. Instilled strict problem-solving discipline and structural thinking directly transferable to software architecture.
+                      Supervised physical construction blueprint adherence, conducted quality assurance inspections, and coordinated schedules across multi-trade teams. Instilled strict problem-solving discipline and structural thinking directly transferable to software architecture.
                     </p>
                   </div>
 
@@ -1014,18 +1033,18 @@ export function App() {
                   <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-amber-500">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-xs font-mono text-amber-400 font-semibold uppercase">
-                        Client Communication
+                        2013–2014, 2021–2022
                       </span>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
-                        Stakeholder Relations
+                        Customer Relations
                       </span>
                     </div>
                     <h4 className="text-base font-bold text-white mt-1">
-                      Senior Sales Executive & Project Lead
+                      Technical Sales & Customer Relations
                     </h4>
-                    <p className="text-xs text-slate-400">Family Retail Business</p>
+                    <p className="text-xs text-slate-400">Power Used Laptop Sales & Shin Shin</p>
                     <p className="text-xs text-slate-300 mt-3 leading-relaxed">
-                      Directed customer relationship workflows, resolved client conflict with high emotional intelligence, and tracked inventory turnover. Developed empathy for end-user requirements and practical business value.
+                      Advised customers on computer hardware and laptop specifications, resolved customer inquiries, and managed sales workflows. Developed active listening, stakeholder empathy, and practical user-first communication.
                     </p>
                   </div>
                 </div>
