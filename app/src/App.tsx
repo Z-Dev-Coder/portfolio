@@ -22,8 +22,11 @@ import {
   MapPin,
   ChevronRight,
   ShieldCheck,
-  Layers
+  Layers,
 } from 'lucide-react';
+import { ParticleBackground } from './components/ParticleBackground';
+import { ScrollReveal, ScrollProgressBar } from './components/ScrollReveal';
+import { MascotCompanion } from './components/MascotCompanion';
 
 // GitHub icon SVG component
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
@@ -269,9 +272,18 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#0b1120] text-slate-100 flex flex-col relative selection:bg-blue-600 selection:text-white bg-grid-pattern">
+      {/* Top Scroll Progress Indicator */}
+      <ScrollProgressBar />
+
+      {/* Interactive Background Particle Network */}
+      <ParticleBackground />
+
+      {/* Floating Mascot Companion */}
+      <MascotCompanion />
+
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900/95 border border-slate-700/80 text-white shadow-2xl backdrop-blur-md animate-fade-in">
+        <div className="fixed bottom-6 left-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900/95 border border-slate-700/80 text-white shadow-2xl backdrop-blur-md animate-fade-in">
           <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
           <p className="text-sm font-medium">{toastMessage}</p>
         </div>
@@ -414,125 +426,129 @@ export function App() {
       <main className="flex-1 z-10 pt-28 pb-16">
         {/* HERO SECTION */}
         <section id="hero" className="max-w-6xl mx-auto px-5 sm:px-8 pt-8 pb-16">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-            {/* Left Column: Text & CTAs */}
-            <div className="flex-1 text-left space-y-6">
-              {/* Status Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-medium">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                Available for Junior Developer & AI Engineering Roles
-              </div>
+          <ScrollReveal direction="up" delay={50}>
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+              {/* Left Column: Text & CTAs */}
+              <div className="flex-1 text-left space-y-6">
+                {/* Status Pill */}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-medium">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  Available for Junior Developer & AI Engineering Roles
+                </div>
 
-              {/* Headline */}
-              <div className="space-y-2">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
-                  Hi, I'm <span className="text-gradient-primary">Zaw Myo Tun</span>.
-                </h1>
-                <p className="text-xl sm:text-2xl font-medium text-slate-200">
-                  Junior Software Developer & AI Solutions Builder
+                {/* Headline */}
+                <div className="space-y-2">
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+                    Hi, I'm <span className="text-gradient-primary">Zaw Myo Tun</span>.
+                  </h1>
+                  <p className="text-xl sm:text-2xl font-medium text-slate-200">
+                    Junior Software Developer & AI Solutions Builder
+                  </p>
+                </div>
+
+                {/* Bio summary */}
+                <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+                  Graduated with <strong className="text-white">Merit in Higher National Diploma in Software Engineering</strong> and currently advancing to a <strong className="text-white">BSc in Computing</strong>. I specialize in building robust backend architectures with <span className="text-sky-400 font-medium">Python & Django</span>, intelligent multi-agent pipelines with <span className="text-indigo-400 font-medium">LangGraph & RAG</span>, and modern interactive web experiences through disciplined <span className="text-emerald-400 font-medium">AI-assisted Agile development (VibeCoding)</span>.
                 </p>
+
+                {/* Action Buttons */}
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <a
+                    href="#projects"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02]"
+                  >
+                    Explore My Projects
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+
+                  <a
+                    href="./Zaw_Myo_Tun_Portfolio.docx"
+                    download="Zaw_Myo_Tun_Portfolio.docx"
+                    onClick={() => showToast('Downloading Resume (DOCX)...')}
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700/80 text-slate-200 transition-all hover:border-slate-500"
+                  >
+                    <Download className="w-4 h-4 text-sky-400" />
+                    Resume (DOCX)
+                  </a>
+
+                  <a
+                    href="https://github.com/Z-Dev-Coder"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-slate-800/40 hover:bg-slate-800/70 border border-slate-700/60 transition-all"
+                  >
+                    <GithubIcon className="w-4 h-4" />
+                    GitHub
+                    <ExternalLink className="w-3 h-3 text-slate-400" />
+                  </a>
+                </div>
+
+                {/* Location & Quick Contact tag */}
+                <div className="flex flex-wrap items-center gap-5 pt-2 text-xs text-slate-400">
+                  <span className="inline-flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                    Mandalay, Myanmar (Remote & Relocation Friendly)
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5 text-slate-400" />
+                    zawmyotun.kl@gmail.com
+                  </span>
+                </div>
               </div>
 
-              {/* Bio summary */}
-              <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-                Graduated with <strong className="text-white">Merit in Higher National Diploma in Software Engineering</strong> and currently advancing to a <strong className="text-white">BSc in Computing</strong>. I specialize in building robust backend architectures with <span className="text-sky-400 font-medium">Python & Django</span>, intelligent multi-agent pipelines with <span className="text-indigo-400 font-medium">LangGraph & RAG</span>, and modern interactive web experiences through disciplined <span className="text-emerald-400 font-medium">AI-assisted Agile development (VibeCoding)</span>.
-              </p>
+              {/* Right Column: Portrait Card with Eye-Pleasing Glow */}
+              <div className="relative group">
+                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 opacity-25 group-hover:opacity-50 blur-xl transition duration-500" />
+                <div className="relative rounded-3xl p-3 bg-slate-900/90 border border-slate-750 shadow-2xl backdrop-blur-xl">
+                  <div className="w-72 sm:w-80 h-96 rounded-2xl overflow-hidden relative bg-slate-950">
+                    <img
+                      src="./zaw_myo_tun.jpg"
+                      alt="Zaw Myo Tun portrait"
+                      className="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105"
+                    />
+                    {/* Bottom glass overlay with quick role title */}
+                    <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-slate-950/95 via-slate-950/70 to-transparent flex flex-col justify-end">
+                      <p className="text-white font-bold text-base">Zaw Myo Tun</p>
+                      <p className="text-xs text-sky-400 font-mono">BSc Computing Candidate · Python Dev</p>
+                    </div>
+                  </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                <a
-                  href="#projects"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02]"
-                >
-                  Explore My Projects
-                  <ArrowRight className="w-4 h-4" />
-                </a>
+                  {/* Floating pill badge on photo */}
+                  <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-xl bg-slate-900/95 border border-slate-700/80 text-xs font-medium text-indigo-300 shadow-xl flex items-center gap-1.5 backdrop-blur-md">
+                    <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+                    LangGraph & RAG
+                  </div>
 
-                <a
-                  href="./Zaw_Myo_Tun_Portfolio.docx"
-                  download="Zaw_Myo_Tun_Portfolio.docx"
-                  onClick={() => showToast('Downloading Resume (DOCX)...')}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700/80 text-slate-200 transition-all hover:border-slate-500"
-                >
-                  <Download className="w-4 h-4 text-sky-400" />
-                  Resume (DOCX)
-                </a>
-
-                <a
-                  href="https://github.com/Z-Dev-Coder"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-slate-800/40 hover:bg-slate-800/70 border border-slate-700/60 transition-all"
-                >
-                  <GithubIcon className="w-4 h-4" />
-                  GitHub
-                  <ExternalLink className="w-3 h-3 text-slate-400" />
-                </a>
-              </div>
-
-              {/* Location & Quick Contact tag */}
-              <div className="flex flex-wrap items-center gap-5 pt-2 text-xs text-slate-400">
-                <span className="inline-flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                  Mandalay, Myanmar (Remote & Relocation Friendly)
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5 text-slate-400" />
-                  zawmyotun.kl@gmail.com
-                </span>
-              </div>
-            </div>
-
-            {/* Right Column: Portrait Card with Eye-Pleasing Glow */}
-            <div className="relative group">
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 opacity-25 group-hover:opacity-50 blur-xl transition duration-500" />
-              <div className="relative rounded-3xl p-3 bg-slate-900/90 border border-slate-750 shadow-2xl backdrop-blur-xl">
-                <div className="w-72 sm:w-80 h-96 rounded-2xl overflow-hidden relative bg-slate-950">
-                  <img
-                    src="./zaw_myo_tun.jpg"
-                    alt="Zaw Myo Tun portrait"
-                    className="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105"
-                  />
-                  {/* Bottom glass overlay with quick role title */}
-                  <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-slate-950/95 via-slate-950/70 to-transparent flex flex-col justify-end">
-                    <p className="text-white font-bold text-base">Zaw Myo Tun</p>
-                    <p className="text-xs text-sky-400 font-mono">BSc Computing Candidate · Python Dev</p>
+                  <div className="absolute -bottom-3 -left-3 px-3 py-1.5 rounded-xl bg-slate-900/95 border border-slate-700/80 text-xs font-medium text-emerald-300 shadow-xl flex items-center gap-1.5 backdrop-blur-md">
+                    <Zap className="w-3.5 h-3.5 text-emerald-400" />
+                    Agile / VibeCoding
                   </div>
                 </div>
-
-                {/* Floating pill badge on photo */}
-                <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-xl bg-slate-900/95 border border-slate-700/80 text-xs font-medium text-indigo-300 shadow-xl flex items-center gap-1.5 backdrop-blur-md">
-                  <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-                  LangGraph & RAG
-                </div>
-
-                <div className="absolute -bottom-3 -left-3 px-3 py-1.5 rounded-xl bg-slate-900/95 border border-slate-700/80 text-xs font-medium text-emerald-300 shadow-xl flex items-center gap-1.5 backdrop-blur-md">
-                  <Zap className="w-3.5 h-3.5 text-emerald-400" />
-                  Agile / VibeCoding
-                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Impact Metrics Counters */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-8 border-t border-slate-800/80">
-            <div className="glass-panel p-5 rounded-2xl border border-slate-800/80">
-              <div className="text-3xl sm:text-4xl font-extrabold text-white">6+</div>
-              <div className="text-xs text-slate-400 mt-1 font-medium">Software & AI Projects</div>
+          <ScrollReveal direction="up" delay={150}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-8 border-t border-slate-800/80">
+              <div className="glass-panel p-5 rounded-2xl border border-slate-800/80 hover:border-sky-500/40 transition-colors">
+                <div className="text-3xl sm:text-4xl font-extrabold text-white">6+</div>
+                <div className="text-xs text-slate-400 mt-1 font-medium">Software & AI Projects</div>
+              </div>
+              <div className="glass-panel p-5 rounded-2xl border border-slate-800/80 hover:border-indigo-500/40 transition-colors">
+                <div className="text-3xl sm:text-4xl font-extrabold text-indigo-400">HND</div>
+                <div className="text-xs text-slate-400 mt-1 font-medium">Software Engineering (Merit)</div>
+              </div>
+              <div className="glass-panel p-5 rounded-2xl border border-slate-800/80 hover:border-sky-500/40 transition-colors">
+                <div className="text-3xl sm:text-4xl font-extrabold text-sky-400">BSc</div>
+                <div className="text-xs text-slate-400 mt-1 font-medium">Computing Candidate</div>
+              </div>
+              <div className="glass-panel p-5 rounded-2xl border border-slate-800/80 hover:border-emerald-500/40 transition-colors">
+                <div className="text-3xl sm:text-4xl font-extrabold text-emerald-400">100%</div>
+                <div className="text-xs text-slate-400 mt-1 font-medium">Agile Delivery Track Record</div>
+              </div>
             </div>
-            <div className="glass-panel p-5 rounded-2xl border border-slate-800/80">
-              <div className="text-3xl sm:text-4xl font-extrabold text-indigo-400">HND</div>
-              <div className="text-xs text-slate-400 mt-1 font-medium">Software Engineering (Merit)</div>
-            </div>
-            <div className="glass-panel p-5 rounded-2xl border border-slate-800/80">
-              <div className="text-3xl sm:text-4xl font-extrabold text-sky-400">BSc</div>
-              <div className="text-xs text-slate-400 mt-1 font-medium">Computing Candidate</div>
-            </div>
-            <div className="glass-panel p-5 rounded-2xl border border-slate-800/80">
-              <div className="text-3xl sm:text-4xl font-extrabold text-emerald-400">100%</div>
-              <div className="text-xs text-slate-400 mt-1 font-medium">Agile Delivery Track Record</div>
-            </div>
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* INFINITE MARQUEE TICKER */}
@@ -589,99 +605,110 @@ export function App() {
 
         {/* ABOUT ME SECTION */}
         <section id="about" className="max-w-6xl mx-auto px-5 sm:px-8 py-20">
-          <div className="space-y-4 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono uppercase tracking-wider">
-              Profile Overview
+          <ScrollReveal direction="up">
+            <div className="space-y-4 max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono uppercase tracking-wider">
+                Profile Overview
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                Engineering Disciplined Software with an AI Advantage
+              </h2>
+              <p className="text-slate-300 text-base leading-relaxed">
+                My software engineering journey unites solid academic rigor from the Higher National Diploma in Software Engineering with an ambitious pursuit of cutting-edge AI architectures. Coming from a background in civil engineering and high-volume retail management, I bring a unique discipline in planning, precision, stakeholder communication, and deadline execution to every codebase I touch.
+              </p>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Engineering Disciplined Software with an AI Advantage
-            </h2>
-            <p className="text-slate-300 text-base leading-relaxed">
-              My software engineering journey unites solid academic rigor from the Higher National Diploma in Software Engineering with an ambitious pursuit of cutting-edge AI architectures. Coming from a background in civil engineering and high-volume retail management, I bring a unique discipline in planning, precision, stakeholder communication, and deadline execution to every codebase I touch.
-            </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
-                <Server className="w-5 h-5" />
+            <ScrollReveal direction="up" delay={50}>
+              <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 space-y-3 h-full">
+                <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
+                  <Server className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-semibold text-white">Backend Fundamentals</h3>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  Structured Django model design, ORM optimization, granular role-based access control, relational database schema integrity, and real-time WebSocket communication pipelines.
+                </p>
               </div>
-              <h3 className="text-lg font-semibold text-white">Backend Fundamentals</h3>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                Structured Django model design, ORM optimization, granular role-based access control, relational database schema integrity, and real-time WebSocket communication pipelines.
-              </p>
-            </div>
+            </ScrollReveal>
 
-            <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-                <Bot className="w-5 h-5" />
+            <ScrollReveal direction="up" delay={150}>
+              <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 space-y-3 h-full">
+                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                  <Bot className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-semibold text-white">AI Agent Architectures</h3>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  Practical integration of stateful multi-agent systems via LangGraph, RAG retrieval using PostgreSQL vector embeddings (pgvector), and local Ollama zero-cost model deployment.
+                </p>
               </div>
-              <h3 className="text-lg font-semibold text-white">AI Agent Architectures</h3>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                Practical integration of stateful multi-agent systems via LangGraph, RAG retrieval using PostgreSQL vector embeddings (pgvector), and local Ollama zero-cost model deployment.
-              </p>
-            </div>
+            </ScrollReveal>
 
-            <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                <Zap className="w-5 h-5" />
+            <ScrollReveal direction="up" delay={250}>
+              <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 space-y-3 h-full">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-semibold text-white">Agile & AI-Driven Delivery</h3>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  Proven experience in 5-member Agile Scrum teams delivering high-impact sprints, paired with rapid iteration using modern AI developer tooling ("VibeCoding") for 5x delivery velocity.
+                </p>
               </div>
-              <h3 className="text-lg font-semibold text-white">Agile & AI-Driven Delivery</h3>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                Proven experience in 5-member Agile Scrum teams delivering high-impact sprints, paired with rapid iteration using modern AI developer tooling ("VibeCoding") for 5x delivery velocity.
-              </p>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* TECHNICAL SKILLS SECTION */}
         <section id="skills" className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
-          <div className="text-left space-y-3 mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono uppercase tracking-wider">
-              Technical Arsenal
+          <ScrollReveal direction="up">
+            <div className="text-left space-y-3 mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono uppercase tracking-wider">
+                Technical Arsenal
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                Skills, Frameworks & Tooling
+              </h2>
+              <p className="text-slate-400 text-sm sm:text-base max-w-2xl">
+                Categorized core competencies gained through academic software coursework, team-based sprint deliverables, and independent AI engineering projects.
+              </p>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Skills, Frameworks & Tooling
-            </h2>
-            <p className="text-slate-400 text-sm sm:text-base max-w-2xl">
-              Categorized core competencies gained through academic software coursework, team-based sprint deliverables, and independent AI engineering projects.
-            </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {SKILL_CATEGORIES.map((cat, idx) => {
               const IconComponent = cat.icon;
               return (
-                <div
-                  key={idx}
-                  className={`glass-panel p-6 sm:p-7 rounded-2xl border border-slate-800/80 group transition-all duration-300 ${cat.borderColor}`}
-                >
-                  <div className="flex items-center gap-3.5 mb-3">
-                    <div
-                      className={`w-11 h-11 rounded-xl bg-slate-900 border border-slate-700/60 flex items-center justify-center ${cat.color} ${cat.bgGlow} transition-colors`}
-                    >
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white tracking-tight">{cat.title}</h3>
-                      <p className="text-xs text-slate-400">{cat.description}</p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2 mt-5">
-                    {cat.skills.map((skill, sIdx) => (
+                <ScrollReveal key={idx} direction="up" delay={idx * 80}>
+                  <div
+                    className={`glass-panel p-6 sm:p-7 rounded-2xl border border-slate-800/80 group transition-all duration-300 ${cat.borderColor} h-full`}
+                  >
+                    <div className="flex items-center gap-3.5 mb-3">
                       <div
-                        key={sIdx}
-                        className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs"
+                        className={`w-11 h-11 rounded-xl bg-slate-900 border border-slate-700/60 flex items-center justify-center ${cat.color} ${cat.bgGlow} transition-colors`}
                       >
-                        <span className="font-medium text-slate-200">{skill.name}</span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700/60">
-                          {skill.level}
-                        </span>
+                        <IconComponent className="w-5 h-5" />
                       </div>
-                    ))}
+                      <div>
+                        <h3 className="text-lg font-bold text-white tracking-tight">{cat.title}</h3>
+                        <p className="text-xs text-slate-400">{cat.description}</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 mt-5">
+                      {cat.skills.map((skill, sIdx) => (
+                        <div
+                          key={sIdx}
+                          className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs"
+                        >
+                          <span className="font-medium text-slate-200">{skill.name}</span>
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700/60">
+                            {skill.level}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </ScrollReveal>
               );
             })}
           </div>
@@ -689,134 +716,137 @@ export function App() {
 
         {/* FEATURED PROJECTS SECTION */}
         <section id="projects" className="max-w-6xl mx-auto px-5 sm:px-8 py-20">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-mono uppercase tracking-wider">
-                Featured Work
+          <ScrollReveal direction="up">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+              <div className="space-y-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-mono uppercase tracking-wider">
+                  Featured Work
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                  Engineered Projects & Systems
+                </h2>
+                <p className="text-slate-400 text-sm sm:text-base max-w-xl">
+                  Explore practical applications ranging from multi-agent RAG support bots to Agile charity distribution platforms and native mobile apps.
+                </p>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                Engineered Projects & Systems
-              </h2>
-              <p className="text-slate-400 text-sm sm:text-base max-w-xl">
-                Explore practical applications ranging from multi-agent RAG support bots to Agile charity distribution platforms and native mobile apps.
-              </p>
-            </div>
 
-            {/* Filter Tabs */}
-            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 self-start md:self-auto overflow-x-auto max-w-full">
-              {(
-                [
-                  { id: 'all', label: 'All Projects' },
-                  { id: 'ai', label: 'AI & Agents' },
-                  { id: 'backend', label: 'Full Stack' },
-                  { id: 'frontend', label: 'Frontend / Mobile' },
-                ] as const
-              ).map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${
-                    activeTab === tab.id
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
+              {/* Filter Tabs */}
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 self-start md:self-auto overflow-x-auto max-w-full">
+                {(
+                  [
+                    { id: 'all', label: 'All Projects' },
+                    { id: 'ai', label: 'AI & Agents' },
+                    { id: 'backend', label: 'Full Stack' },
+                    { id: 'frontend', label: 'Frontend / Mobile' },
+                  ] as const
+                ).map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${
+                      activeTab === tab.id
+                        ? 'bg-blue-600 text-white shadow-md'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Project Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
-            {filteredProjects.map((project) => (
-              <div
-                key={project.id}
-                className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-7 border border-slate-800/90 flex flex-col justify-between relative overflow-hidden group"
-              >
-                {/* Subtle card top gradient accent */}
+            {filteredProjects.map((project, pIdx) => (
+              <ScrollReveal key={project.id} direction="up" delay={(pIdx % 2) * 100}>
                 <div
-                  className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${project.accent}`}
-                />
+                  className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-7 border border-slate-800/90 flex flex-col justify-between relative overflow-hidden group h-full"
+                >
+                  {/* Subtle card top gradient accent */}
+                  <div
+                    className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${project.accent}`}
+                  />
 
-                <div className="space-y-4">
-                  {/* Badge & Category */}
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full border ${project.badgeColor}`}
-                    >
-                      {project.badge}
-                    </span>
-                    <span className="text-[11px] text-slate-500 font-mono uppercase tracking-wider">
-                      {project.category.toUpperCase()}
-                    </span>
-                  </div>
-
-                  {/* Title & Subtitle */}
-                  <div>
-                    <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-sky-400 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs font-medium text-slate-400 mt-1">{project.subtitle}</p>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Highlights Bullet List */}
-                  <div className="space-y-1.5 pt-1">
-                    <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider font-mono">
-                      Key Capabilities:
-                    </p>
-                    {project.highlights.map((item, hIdx) => (
-                      <div key={hIdx} className="flex items-start gap-2 text-xs text-slate-400">
-                        <ChevronRight className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Tech Tags */}
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {project.tags.map((tag, tIdx) => (
+                  <div className="space-y-4">
+                    {/* Badge & Category */}
+                    <div className="flex items-center justify-between">
                       <span
-                        key={tIdx}
-                        className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-900/90 text-slate-300 border border-slate-800"
+                        className={`text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full border ${project.badgeColor}`}
                       >
-                        {tag}
+                        {project.badge}
                       </span>
-                    ))}
+                      <span className="text-[11px] text-slate-500 font-mono uppercase tracking-wider">
+                        {project.category.toUpperCase()}
+                      </span>
+                    </div>
+
+                    {/* Title & Subtitle */}
+                    <div>
+                      <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-sky-400 transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="text-xs font-medium text-slate-400 mt-1">{project.subtitle}</p>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* Highlights Bullet List */}
+                    <div className="space-y-1.5 pt-1">
+                      <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider font-mono">
+                        Key Capabilities:
+                      </p>
+                      {project.highlights.map((item, hIdx) => (
+                        <div key={hIdx} className="flex items-start gap-2 text-xs text-slate-400">
+                          <ChevronRight className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Tech Tags */}
+                    <div className="flex flex-wrap gap-1.5 pt-2">
+                      {project.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-900/90 text-slate-300 border border-slate-800"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                {/* Footer Links */}
-                <div className="flex items-center gap-3 pt-6 mt-6 border-t border-slate-800/80">
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-100 transition-all border border-slate-700/60"
-                  >
-                    <GithubIcon className="w-3.5 h-3.5" />
-                    Source Code
-                  </a>
-
-                  {project.liveUrl && (
+                  {/* Footer Links */}
+                  <div className="flex items-center gap-3 pt-6 mt-6 border-t border-slate-800/80">
                     <a
-                      href={project.liveUrl}
+                      href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-md shadow-blue-500/20"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-100 transition-all border border-slate-700/60"
                     >
-                      <Globe className="w-3.5 h-3.5" />
-                      Live Preview
-                      <ExternalLink className="w-3 h-3 ml-0.5" />
+                      <GithubIcon className="w-3.5 h-3.5" />
+                      Source Code
                     </a>
-                  )}
+
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-md shadow-blue-500/20"
+                      >
+                        <Globe className="w-3.5 h-3.5" />
+                        Live Preview
+                        <ExternalLink className="w-3 h-3 ml-0.5" />
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </section>
@@ -825,254 +855,262 @@ export function App() {
         <section id="experience" className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Education Track */}
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono uppercase tracking-wider">
-                  Academic Milestones
-                </div>
-                <h3 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-                  <BookOpen className="w-6 h-6 text-sky-400" />
-                  Education & Qualifications
-                </h3>
-              </div>
-
-              <div className="space-y-4">
-                {/* Degree 1 */}
-                <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-sky-500">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-mono text-sky-400 font-semibold uppercase">
-                      2025 — Present
-                    </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30">
-                      In Progress
-                    </span>
+            <ScrollReveal direction="up" delay={50}>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono uppercase tracking-wider">
+                    Academic Milestones
                   </div>
-                  <h4 className="text-base font-bold text-white mt-1">BSc (Hons) in Computing</h4>
-                  <p className="text-xs text-slate-400">EduCLaaS Academy</p>
-                  <p className="text-xs text-slate-300 mt-3 leading-relaxed">
-                    Advanced software development curriculum focusing on software architecture, distributed systems, machine learning fundamentals, and enterprise computing systems.
-                  </p>
+                  <h3 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                    <BookOpen className="w-6 h-6 text-sky-400" />
+                    Education & Qualifications
+                  </h3>
                 </div>
 
-                {/* Degree 2 */}
-                <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-indigo-500">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-mono text-indigo-400 font-semibold uppercase">
-                      2023 — 2025
-                    </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">
-                      Merit Awarded
-                    </span>
+                <div className="space-y-4">
+                  {/* Degree 1 */}
+                  <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-sky-500">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-mono text-sky-400 font-semibold uppercase">
+                        2025 — Present
+                      </span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                        In Progress
+                      </span>
+                    </div>
+                    <h4 className="text-base font-bold text-white mt-1">BSc (Hons) in Computing</h4>
+                    <p className="text-xs text-slate-400">EduCLaaS Academy</p>
+                    <p className="text-xs text-slate-300 mt-3 leading-relaxed">
+                      Advanced software development curriculum focusing on software architecture, distributed systems, machine learning fundamentals, and enterprise computing systems.
+                    </p>
                   </div>
-                  <h4 className="text-base font-bold text-white mt-1">
-                    Higher National Diploma in Software Engineering (HDSE)
-                  </h4>
-                  <p className="text-xs text-slate-400">EduCLaaS Academy</p>
-                  <p className="text-xs text-slate-300 mt-3 leading-relaxed">
-                    Intensive coursework in Object-Oriented Programming (Java, Python), Relational Database Management, Web Application Development (Django), Mobile Application Development (Android), Agile Scrum Project Management, and Software Design Documentation.
-                  </p>
+
+                  {/* Degree 2 */}
+                  <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-indigo-500">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-mono text-indigo-400 font-semibold uppercase">
+                        2023 — 2025
+                      </span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">
+                        Merit Awarded
+                      </span>
+                    </div>
+                    <h4 className="text-base font-bold text-white mt-1">
+                      Higher National Diploma in Software Engineering (HDSE)
+                    </h4>
+                    <p className="text-xs text-slate-400">EduCLaaS Academy</p>
+                    <p className="text-xs text-slate-300 mt-3 leading-relaxed">
+                      Intensive coursework in Object-Oriented Programming (Java, Python), Relational Database Management, Web Application Development (Django), Mobile Application Development (Android), Agile Scrum Project Management, and Software Design Documentation.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Practical Engineering & Professional Experience */}
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono uppercase tracking-wider">
-                  Transferable Discipline
-                </div>
-                <h3 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-                  <Briefcase className="w-6 h-6 text-emerald-400" />
-                  Professional Background
-                </h3>
-              </div>
-
-              <div className="space-y-4">
-                {/* Role 1 */}
-                <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-emerald-500">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-mono text-emerald-400 font-semibold uppercase">
-                      Engineering Coordination
-                    </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
-                      Technical Oversight
-                    </span>
+            <ScrollReveal direction="up" delay={150}>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono uppercase tracking-wider">
+                    Transferable Discipline
                   </div>
-                  <h4 className="text-base font-bold text-white mt-1">Site Engineer</h4>
-                  <p className="text-xs text-slate-400">Myat Min Construction</p>
-                  <p className="text-xs text-slate-300 mt-3 leading-relaxed">
-                    Managed physical engineering blueprint compliance, conducted daily quality assurance checks, and coordinated multi-trade contractor schedules. Instilled strict problem-solving discipline and structural thinking directly transferable to software architecture.
-                  </p>
+                  <h3 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                    <Briefcase className="w-6 h-6 text-emerald-400" />
+                    Professional Background
+                  </h3>
                 </div>
 
-                {/* Role 2 */}
-                <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-amber-500">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-mono text-amber-400 font-semibold uppercase">
-                      Client Communication
-                    </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
-                      Stakeholder Relations
-                    </span>
+                <div className="space-y-4">
+                  {/* Role 1 */}
+                  <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-emerald-500">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-mono text-emerald-400 font-semibold uppercase">
+                        Engineering Coordination
+                      </span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
+                        Technical Oversight
+                      </span>
+                    </div>
+                    <h4 className="text-base font-bold text-white mt-1">Site Engineer</h4>
+                    <p className="text-xs text-slate-400">Myat Min Construction</p>
+                    <p className="text-xs text-slate-300 mt-3 leading-relaxed">
+                      Managed physical engineering blueprint compliance, conducted daily quality assurance checks, and coordinated multi-trade contractor schedules. Instilled strict problem-solving discipline and structural thinking directly transferable to software architecture.
+                    </p>
                   </div>
-                  <h4 className="text-base font-bold text-white mt-1">
-                    Senior Sales Executive & Project Lead
-                  </h4>
-                  <p className="text-xs text-slate-400">Family Retail Business</p>
-                  <p className="text-xs text-slate-300 mt-3 leading-relaxed">
-                    Directed customer relationship workflows, resolved client conflict with high emotional intelligence, and tracked inventory turnover. Developed empathy for end-user requirements and practical business value.
-                  </p>
+
+                  {/* Role 2 */}
+                  <div className="glass-panel p-6 rounded-2xl border border-slate-800/80 relative pl-6 border-l-4 border-l-amber-500">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-mono text-amber-400 font-semibold uppercase">
+                        Client Communication
+                      </span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
+                        Stakeholder Relations
+                      </span>
+                    </div>
+                    <h4 className="text-base font-bold text-white mt-1">
+                      Senior Sales Executive & Project Lead
+                    </h4>
+                    <p className="text-xs text-slate-400">Family Retail Business</p>
+                    <p className="text-xs text-slate-300 mt-3 leading-relaxed">
+                      Directed customer relationship workflows, resolved client conflict with high emotional intelligence, and tracked inventory turnover. Developed empathy for end-user requirements and practical business value.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* VERIFIED RESUME DOWNLOAD SECTION */}
         <section id="downloads" className="max-w-6xl mx-auto px-5 sm:px-8 py-20">
-          <div className="glass-panel rounded-3xl p-8 sm:p-12 border border-slate-800 relative overflow-hidden bg-gradient-to-b from-slate-900/90 to-slate-950/90">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+          <ScrollReveal direction="up">
+            <div className="glass-panel rounded-3xl p-8 sm:p-12 border border-slate-800 relative overflow-hidden bg-gradient-to-b from-slate-900/90 to-slate-950/90">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-              <div className="space-y-4 text-left max-w-xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono uppercase tracking-wider">
-                  Verified Documentation
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                  Download Verified Resume
-                </h2>
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                  Need a clean, formatted copy for HR, technical recruiters, or offline evaluation? Download the latest ATS-compliant Word document with complete project specs, verified academic modules, and technical competencies.
-                </p>
-
-                <div className="flex flex-wrap items-center gap-4 pt-1 text-xs text-slate-400 font-mono">
-                  <span className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                    ATS-Optimized Formatting
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Layers className="w-4 h-4 text-sky-400" />
-                    Complete Project Deliverables
-                  </span>
-                </div>
-              </div>
-
-              {/* Single High-Impact Resume Action Card */}
-              <div className="w-full lg:w-auto">
-                <a
-                  href="./Zaw_Myo_Tun_Portfolio.docx"
-                  download="Zaw_Myo_Tun_Portfolio.docx"
-                  onClick={() => showToast('Downloading Verified Resume (DOCX)...')}
-                  className="w-full sm:w-80 p-6 rounded-2xl bg-gradient-to-br from-slate-900/95 to-slate-850/95 hover:from-slate-800 hover:to-slate-750 border border-slate-700/80 hover:border-sky-500/60 transition-all flex items-center justify-between group shadow-xl hover:scale-[1.02]"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform shrink-0">
-                      <FileText className="w-7 h-7" />
-                    </div>
-                    <div className="text-left">
-                      <p className="text-base font-bold text-white group-hover:text-sky-400 transition-colors">
-                        Developer Resume
-                      </p>
-                      <p className="text-xs text-slate-400">Microsoft Word (.docx)</p>
-                      <span className="text-[11px] text-sky-400 font-medium inline-flex items-center gap-1 mt-1 font-mono">
-                        Instant Download (~41 KB)
-                      </span>
-                    </div>
+              <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div className="space-y-4 text-left max-w-xl">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono uppercase tracking-wider">
+                    Verified Documentation
                   </div>
-                  <Download className="w-5 h-5 text-slate-400 group-hover:text-sky-400 group-hover:translate-y-0.5 transition-all" />
-                </a>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Download Verified Resume
+                  </h2>
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Need a clean, formatted copy for HR, technical recruiters, or offline evaluation? Download the latest ATS-compliant Word document with complete project specs, verified academic modules, and technical competencies.
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-4 pt-1 text-xs text-slate-400 font-mono">
+                    <span className="flex items-center gap-1.5">
+                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                      ATS-Optimized Formatting
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Layers className="w-4 h-4 text-sky-400" />
+                      Complete Project Deliverables
+                    </span>
+                  </div>
+                </div>
+
+                {/* Single High-Impact Resume Action Card */}
+                <div className="w-full lg:w-auto">
+                  <a
+                    href="./Zaw_Myo_Tun_Portfolio.docx"
+                    download="Zaw_Myo_Tun_Portfolio.docx"
+                    onClick={() => showToast('Downloading Verified Resume (DOCX)...')}
+                    className="w-full sm:w-80 p-6 rounded-2xl bg-gradient-to-br from-slate-900/95 to-slate-850/95 hover:from-slate-800 hover:to-slate-750 border border-slate-700/80 hover:border-sky-500/60 transition-all flex items-center justify-between group shadow-xl hover:scale-[1.02]"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 rounded-2xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform shrink-0">
+                        <FileText className="w-7 h-7" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-base font-bold text-white group-hover:text-sky-400 transition-colors">
+                          Developer Resume
+                        </p>
+                        <p className="text-xs text-slate-400">Microsoft Word (.docx)</p>
+                        <span className="text-[11px] text-sky-400 font-medium inline-flex items-center gap-1 mt-1 font-mono">
+                          Instant Download (~41 KB)
+                        </span>
+                      </div>
+                    </div>
+                    <Download className="w-5 h-5 text-slate-400 group-hover:text-sky-400 group-hover:translate-y-0.5 transition-all" />
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* CONTACT SECTION */}
         <section id="contact" className="max-w-4xl mx-auto px-5 sm:px-8 py-16">
-          <div className="text-center space-y-4 mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono uppercase tracking-wider">
-              Get In Touch
+          <ScrollReveal direction="up">
+            <div className="text-center space-y-4 mb-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono uppercase tracking-wider">
+                Get In Touch
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                Let's Build Something Meaningful
+              </h2>
+              <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+                I am actively seeking junior software developer, full-stack Python/Django, and AI engineering opportunities. Reach out directly and let's discuss how I can contribute to your team.
+              </p>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Let's Build Something Meaningful
-            </h2>
-            <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
-              I am actively seeking junior software developer, full-stack Python/Django, and AI engineering opportunities. Reach out directly and let's discuss how I can contribute to your team.
-            </p>
-          </div>
 
-          <div className="glass-panel p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
-              <div className="flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0">
-                  <Mail className="w-6 h-6" />
+            <div className="glass-panel p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs text-slate-400 uppercase tracking-wider font-mono">
+                      Direct Email Address
+                    </p>
+                    <p className="text-base sm:text-lg font-semibold text-white select-all">
+                      zawmyotun.kl@gmail.com
+                    </p>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <p className="text-xs text-slate-400 uppercase tracking-wider font-mono">
-                    Direct Email Address
-                  </p>
-                  <p className="text-base sm:text-lg font-semibold text-white select-all">
-                    zawmyotun.kl@gmail.com
-                  </p>
+
+                <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                  <button
+                    onClick={copyEmail}
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition-all active:scale-95"
+                  >
+                    {copiedEmail ? (
+                      <>
+                        <Check className="w-4 h-4 text-emerald-400" />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4 text-slate-400" />
+                        Copy Email
+                      </>
+                    )}
+                  </button>
+
+                  <a
+                    href="mailto:zawmyotun.kl@gmail.com"
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-md shadow-blue-500/20 transition-all hover:scale-[1.02]"
+                  >
+                    <Mail className="w-4 h-4" />
+                    Send Mail
+                  </a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                <button
-                  onClick={copyEmail}
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition-all active:scale-95"
-                >
-                  {copiedEmail ? (
-                    <>
-                      <Check className="w-4 h-4 text-emerald-400" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4 text-slate-400" />
-                      Copy Email
-                    </>
-                  )}
-                </button>
+              {/* Quick Credentials & Links Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-8 border-t border-slate-800/80 text-left">
+                <div className="space-y-1">
+                  <p className="text-xs text-slate-400 font-mono uppercase">GitHub Profile</p>
+                  <a
+                    href="https://github.com/Z-Dev-Coder"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-semibold text-sky-400 hover:text-sky-300 inline-flex items-center gap-1"
+                  >
+                    github.com/Z-Dev-Coder
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
 
-                <a
-                  href="mailto:zawmyotun.kl@gmail.com"
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-md shadow-blue-500/20 transition-all hover:scale-[1.02]"
-                >
-                  <Mail className="w-4 h-4" />
-                  Send Mail
-                </a>
+                <div className="space-y-1">
+                  <p className="text-xs text-slate-400 font-mono uppercase">Current Status</p>
+                  <p className="text-sm font-semibold text-emerald-400 inline-flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Available for Hire
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-xs text-slate-400 font-mono uppercase">Location</p>
+                  <p className="text-sm font-semibold text-slate-200">Mandalay, Myanmar</p>
+                </div>
               </div>
             </div>
-
-            {/* Quick Credentials & Links Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-8 border-t border-slate-800/80 text-left">
-              <div className="space-y-1">
-                <p className="text-xs text-slate-400 font-mono uppercase">GitHub Profile</p>
-                <a
-                  href="https://github.com/Z-Dev-Coder"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-semibold text-sky-400 hover:text-sky-300 inline-flex items-center gap-1"
-                >
-                  github.com/Z-Dev-Coder
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-
-              <div className="space-y-1">
-                <p className="text-xs text-slate-400 font-mono uppercase">Current Status</p>
-                <p className="text-sm font-semibold text-emerald-400 inline-flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  Available for Hire
-                </p>
-              </div>
-
-              <div className="space-y-1">
-                <p className="text-xs text-slate-400 font-mono uppercase">Location</p>
-                <p className="text-sm font-semibold text-slate-200">Mandalay, Myanmar</p>
-              </div>
-            </div>
-          </div>
+          </ScrollReveal>
         </section>
       </main>
 
