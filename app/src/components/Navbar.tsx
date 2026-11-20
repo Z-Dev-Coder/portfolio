@@ -19,13 +19,17 @@ export default function Navbar({ activeSection = 'hero' }: NavbarProps) {
   }, []);
 
   const navLinks = [
-    { href: '#about', label: 'About', id: 'about', num: '01' },
-    { href: '#workflow', label: 'Workflow', id: 'workflow', num: '02' },
-    { href: '#projects', label: 'Projects', id: 'projects', num: '03' },
-    { href: '#expertise', label: 'Expertise', id: 'expertise', num: '04' },
-    { href: '#experience', label: 'Experience', id: 'experience', num: '05' },
-    { href: '#contact', label: 'Contact', id: 'contact', num: '06' },
+    { href: '#about', label: 'About', id: 'about' },
+    { href: '#projects', label: 'Projects', id: 'projects' },
+    { href: '#expertise', label: 'Expertise', id: 'expertise' },
+    { href: '#experience', label: 'Experience', id: 'experience' },
+    { href: '#contact', label: 'Contact', id: 'contact' },
   ];
+
+  const isLinkActive = (id: string) => {
+    if (id === 'about') return activeSection === 'about' || activeSection === 'workflow';
+    return activeSection === id;
+  };
 
   return (
     <>
@@ -43,27 +47,25 @@ export default function Navbar({ activeSection = 'hero' }: NavbarProps) {
             href="#hero"
             className="group flex items-center gap-1.5 text-base sm:text-lg font-bold tracking-tight text-[#F2F4EF] hover:text-[#B8F36B] transition-colors"
           >
-            <span className="font-mono text-xs text-[#B8F36B] font-semibold tracking-wider">01/</span>
             <span>ZMT</span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#B8F36B] group-hover:scale-125 transition-transform" />
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#121714]/80 border border-white/10 rounded-full px-4 py-1.5 shadow-inner">
+          <nav className="hidden md:flex items-center gap-1 bg-[#121714]/80 border border-white/10 rounded-full px-3.5 py-1.5 shadow-inner">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.id;
+              const isActive = isLinkActive(link.id);
               return (
                 <a
                   key={link.id}
                   href={link.href}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors ${
                     isActive
                       ? 'text-[#B8F36B] bg-white/5 font-semibold'
                       : 'text-[#A3AAA3] hover:text-[#F2F4EF] hover:bg-white/5'
                   }`}
                 >
-                  <span className="text-[10px] font-mono text-[#737D75]">{link.num}</span>
-                  <span>{link.label}</span>
+                  {link.label}
                 </a>
               );
             })}
@@ -121,18 +123,24 @@ export default function Navbar({ activeSection = 'hero' }: NavbarProps) {
               <span>Open to Junior Software &amp; AI Roles</span>
             </div>
 
-            <nav className="flex flex-col space-y-2">
-              {navLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-lg text-sm font-medium text-[#A3AAA3] hover:text-[#B8F36B] hover:bg-white/5 transition-colors flex items-center justify-between"
-                >
-                  <span>{link.label}</span>
-                  <span className="font-mono text-xs text-[#737D75]">{link.num}</span>
-                </a>
-              ))}
+            <nav className="flex flex-col space-y-1">
+              {navLinks.map((link) => {
+                const isActive = isLinkActive(link.id);
+                return (
+                  <a
+                    key={link.id}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-between ${
+                      isActive
+                        ? 'text-[#B8F36B] bg-white/5 font-semibold'
+                        : 'text-[#A3AAA3] hover:text-[#F2F4EF] hover:bg-white/5'
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                  </a>
+                );
+              })}
             </nav>
 
             <div className="pt-2">
