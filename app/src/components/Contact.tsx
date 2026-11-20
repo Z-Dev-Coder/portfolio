@@ -41,10 +41,10 @@ export default function Contact() {
         </RevealOnScroll>
 
         {/* Contact Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
           {/* Email Card with 1-click copy */}
           <RevealOnScroll direction="up" delay={100}>
-            <div className="surface-card rounded-2xl p-6 sm:p-7 flex items-center justify-between gap-4 text-left hover:border-[#B8F36B]/40 transition-all">
+            <div className="surface-card rounded-2xl p-5 sm:p-6 flex items-center justify-between gap-4 text-left hover:border-[#B8F36B]/40 transition-all h-full">
               <div className="flex items-center gap-3.5 min-w-0">
                 <div className="w-12 h-12 rounded-xl bg-[#171C19] border border-white/10 flex items-center justify-center text-[#B8F36B] shrink-0">
                   <Mail className="w-5 h-5" />
@@ -55,7 +55,7 @@ export default function Contact() {
                   </p>
                   <a
                     href="mailto:zawmyotun.kl@gmail.com"
-                    className="text-sm sm:text-base font-semibold text-[#F2F4EF] hover:text-[#B8F36B] transition-colors truncate block"
+                    className="text-sm sm:text-base font-semibold text-[#F2F4EF] hover:text-[#B8F36B] transition-colors whitespace-nowrap block"
                   >
                     zawmyotun.kl@gmail.com
                   </a>
@@ -79,7 +79,7 @@ export default function Contact() {
 
           {/* Direct Phone Card (Non-clickable, static text per user preference) */}
           <RevealOnScroll direction="up" delay={200}>
-            <div className="surface-card rounded-2xl p-6 sm:p-7 flex items-center gap-3.5 text-left hover:border-[#B8F36B]/40 transition-all">
+            <div className="surface-card rounded-2xl p-5 sm:p-6 flex items-center gap-3.5 text-left hover:border-[#B8F36B]/40 transition-all h-full">
               <div className="w-12 h-12 rounded-xl bg-[#171C19] border border-white/10 flex items-center justify-center text-[#B8F36B] shrink-0">
                 <Phone className="w-5 h-5" />
               </div>
@@ -87,9 +87,15 @@ export default function Contact() {
                 <p className="text-[11px] font-mono uppercase tracking-wider text-[#737D75]">
                   Direct Phone / Call
                 </p>
-                <p className="text-sm sm:text-base font-semibold text-[#F2F4EF] select-all font-mono mt-0.5">
-                  09-943773771 / 09-793443483
-                </p>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5">
+                  <span className="text-sm sm:text-base font-semibold text-[#F2F4EF] select-all font-mono">
+                    09-943773771
+                  </span>
+                  <span className="text-[#737D75] text-sm">/</span>
+                  <span className="text-sm sm:text-base font-semibold text-[#F2F4EF] select-all font-mono">
+                    09-793443483
+                  </span>
+                </div>
               </div>
             </div>
           </RevealOnScroll>
@@ -97,7 +103,7 @@ export default function Contact() {
 
         {/* Quick Credentials & Links Strip */}
         <RevealOnScroll direction="up" delay={300}>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto pt-6 border-t border-white/10 text-left">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-white/10 text-left">
             <div className="space-y-1">
               <p className="text-xs text-[#737D75] font-mono uppercase">GitHub Profile</p>
               <a
