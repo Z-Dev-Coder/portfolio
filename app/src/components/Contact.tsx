@@ -14,6 +14,14 @@ function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
   );
 }
 
+function LinkedinIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.55a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66 1.65 1.65 0 0 0-1.66-1.66Z" />
+    </svg>
+  );
+}
+
 export default function Contact() {
   const [copiedEmail, setCopiedEmail] = useState(false);
 
@@ -103,7 +111,7 @@ export default function Contact() {
 
         {/* Quick Credentials & Links Strip */}
         <RevealOnScroll direction="up" delay={300}>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-white/10 text-left">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto pt-6 border-t border-white/10 text-left">
             <div className="space-y-1">
               <p className="text-xs text-[#737D75] font-mono uppercase">GitHub Profile</p>
               <a
@@ -111,9 +119,25 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-semibold text-[#B8F36B] hover:underline inline-flex items-center gap-1"
+                aria-label="GitHub Profile (opens in new tab)"
               >
                 <GithubIcon className="w-3.5 h-3.5" />
                 <span>Z-Dev-Coder</span>
+                <ExternalLink className="w-3 h-3 ml-0.5" />
+              </a>
+            </div>
+
+            <div className="space-y-1">
+              <p className="text-xs text-[#737D75] font-mono uppercase">LinkedIn</p>
+              <a
+                href="https://linkedin.com/in/zaw-myo-tun"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-[#F2F4EF] hover:text-[#B8F36B] transition-colors inline-flex items-center gap-1"
+                aria-label="LinkedIn Profile (opens in new tab)"
+              >
+                <LinkedinIcon className="w-3.5 h-3.5 text-[#0077B5]" />
+                <span>Zaw Myo Tun</span>
                 <ExternalLink className="w-3 h-3 ml-0.5" />
               </a>
             </div>
@@ -140,6 +164,7 @@ export default function Contact() {
                 href="./Zaw_Myo_Tun_Portfolio.docx"
                 download
                 className="text-sm font-semibold text-[#F2F4EF] hover:text-[#B8F36B] transition-colors inline-flex items-center gap-1"
+                aria-label="Download Curriculum Vitae in DOCX format"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download DOCX</span>

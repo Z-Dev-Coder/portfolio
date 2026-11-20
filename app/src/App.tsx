@@ -41,11 +41,19 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#080A0A] text-[#F2F4EF] selection:bg-[#B8F36B] selection:text-[#080A0A]">
+      {/* Accessible Skip to Content Link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#B8F36B] focus:text-[#080A0A] focus:font-semibold focus:text-xs focus:rounded-lg focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
+
       {/* Top minimal sticky navigation with scroll progress indicator */}
       <Navbar activeSection={activeSection} />
 
       {/* Main content flow */}
-      <main>
+      <main id="main-content">
         <Hero />
         <CredentialStrip />
         <Statistics />

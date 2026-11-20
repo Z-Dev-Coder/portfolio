@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { ExternalLink, ArrowRight, Layers } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { ExternalLink, ArrowRight, Layers, Search, X } from 'lucide-react';
 import { PROJECTS } from '../data/projects';
-import type { Project } from '../data/projects';
+import type { Project, ProjectStatus } from '../data/projects';
 import ProjectDetailModal from './ProjectDetailModal';
 
 function GithubIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
@@ -16,20 +16,50 @@ function GithubIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
   );
 }
 
+function StatusBadge({ status }: { status: ProjectStatus }) {
+  const styles: Record<ProjectStatus, string> = {
+    Live: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+    Prototype: 'bg-sky-500/15 text-sky-400 border-sky-500/30',
+    Academic: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+    Archived: 'bg-zinc-500/15 text-zinc-400 border-zinc-500/30',
+    Private: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
+  };
+
+  return (
+    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border font-semibold inline-flex items-center gap-1.5 ${styles[status]}`}>
+      <span className="w-1.5 h-1.5 rounded-full bg-current" />
+      <span>{status}</span>
+    </span>
+  );
+}
+
 export default function FeaturedProjects() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'ai' | 'backend' | 'frontend'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const filteredProjects = PROJECTS.filter(
-    (p) => activeFilter === 'all' || p.category === activeFilter
-  );
+  const filteredProjects = useMemo(() => {
+    return PROJECTS.filter((p) => {
+      const matchesCategory = activeFilter === 'all' || p.category === activeFilter;
+      const query = searchQuery.trim().toLowerCase();
+      if (!query) return matchesCategory;
+
+      const matchesSearch =
+        p.title.toLowerCase().includes(query) ||
+        p.tagline.toLowerCase().includes(query) ||
+        p.tags.some((t) => t.toLowerCase().includes(query)) ||
+        p.role.toLowerCase().includes(query);
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeFilter, searchQuery]);
 
   const flagshipProjects = filteredProjects.filter((p) => p.isFlagship);
   const secondaryProjects = filteredProjects.filter((p) => !p.isFlagship);
 
   return (
     <section id="projects" className="py-24 border-b border-white/10 bg-[#080A0A]">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-12">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-10">
         {/* Section Header & Filters */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
           <div className="space-y-3">
@@ -44,30 +74,71 @@ export default function FeaturedProjects() {
             </p>
           </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-[#121714] border border-white/10 self-start md:self-auto">
-            {(
-              [
-                { id: 'all', label: 'All Projects' },
-                { id: 'ai', label: 'AI & Agents' },
-                { id: 'backend', label: 'Backend / Full Stack' },
-                { id: 'frontend', label: 'Frontend / Mobile' },
-              ] as const
-            ).map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveFilter(tab.id)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  activeFilter === tab.id
-                    ? 'bg-[#B8F36B] text-[#080A0A] font-semibold shadow-sm'
-                    : 'text-[#A3AAA3] hover:text-[#F2F4EF] hover:bg-white/5'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+          {/* Filter Pills & Quick Search */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            {/* Search Box */}
+            <div className="relative">
+              <Search className="w-3.5 h-3.5 text-[#737D75] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Filter by tech or keyword..."
+                aria-label="Filter projects by technology or keyword"
+                className="w-full sm:w-56 pl-8 pr-8 py-1.5 rounded-xl bg-[#121714] border border-white/10 text-xs text-[#F2F4EF] placeholder-[#737D75] focus:outline-none focus:border-[#B8F36B]/50 transition-colors"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  aria-label="Clear search"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#737D75] hover:text-[#F2F4EF]"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+            </div>
+
+            {/* Category Pills */}
+            <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-[#121714] border border-white/10">
+              {(
+                [
+                  { id: 'all', label: 'All' },
+                  { id: 'ai', label: 'AI & Agents' },
+                  { id: 'backend', label: 'Backend' },
+                  { id: 'frontend', label: 'Frontend' },
+                ] as const
+              ).map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveFilter(tab.id)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                    activeFilter === tab.id
+                      ? 'bg-[#B8F36B] text-[#080A0A] font-semibold shadow-sm'
+                      : 'text-[#A3AAA3] hover:text-[#F2F4EF] hover:bg-white/5'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
+
+        {/* Empty state when search produces 0 matches */}
+        {filteredProjects.length === 0 && (
+          <div className="p-12 text-center rounded-2xl bg-[#121714] border border-white/10 space-y-3">
+            <p className="text-sm text-[#A3AAA3]">No projects match your filter "{searchQuery}".</p>
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setActiveFilter('all');
+              }}
+              className="px-4 py-2 rounded-lg bg-[#171C19] border border-white/10 text-xs text-[#B8F36B] hover:bg-white/5 transition-colors"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
 
         {/* FLAGSHIP PROJECTS — BENTO SHOWCASE */}
         {flagshipProjects.length > 0 && (
@@ -89,7 +160,11 @@ export default function FeaturedProjects() {
                       <div className="group relative rounded-xl overflow-hidden border border-white/10 bg-[#080A0A] shadow-lg">
                         <img
                           src={project.screenshot}
-                          alt={`${project.title} interface preview`}
+                          alt={`${project.title} user interface preview`}
+                          width="640"
+                          height="360"
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-auto max-h-[360px] object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#080A0A]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -112,6 +187,7 @@ export default function FeaturedProjects() {
                     >
                       <div className="space-y-2">
                         <div className="flex flex-wrap items-center gap-2">
+                          <StatusBadge status={project.status} />
                           <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-[#B8F36B]/15 text-[#B8F36B] border border-[#B8F36B]/30">
                             {project.badge}
                           </span>
@@ -120,13 +196,22 @@ export default function FeaturedProjects() {
                           </span>
                         </div>
 
-                        <h3 className="text-2xl sm:text-3xl font-bold text-[#F2F4EF] tracking-tight hover:text-[#B8F36B] transition-colors cursor-pointer" onClick={() => setSelectedProject(project)}>
+                        <h3
+                          className="text-2xl sm:text-3xl font-bold text-[#F2F4EF] tracking-tight hover:text-[#B8F36B] transition-colors cursor-pointer"
+                          onClick={() => setSelectedProject(project)}
+                        >
                           {project.title}
                         </h3>
 
                         <p className="text-xs font-mono text-[#A3AAA3] leading-relaxed">
                           {project.tagline}
                         </p>
+
+                        <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#737D75] pt-1">
+                          <span>Role: <strong className="text-[#F2F4EF] font-semibold">{project.role}</strong></span>
+                          <span>·</span>
+                          <span>Timeline: <strong className="text-[#F2F4EF] font-semibold">{project.timeline}</strong></span>
+                        </div>
                       </div>
 
                       <p className="text-sm text-[#A3AAA3] leading-relaxed">
@@ -220,10 +305,13 @@ export default function FeaturedProjects() {
                   className="surface-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between space-y-4 hover:border-[#B8F36B]/40 transition-all"
                 >
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[#A3AAA3]">
-                        {project.badge}
-                      </span>
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <StatusBadge status={project.status} />
+                        <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[#A3AAA3]">
+                          {project.badge}
+                        </span>
+                      </div>
                       <span className="text-[11px] font-mono text-[#737D75] uppercase">
                         {project.categoryLabel}
                       </span>
@@ -235,6 +323,12 @@ export default function FeaturedProjects() {
                     >
                       {project.title}
                     </h4>
+
+                    <div className="flex items-center gap-2 text-xs font-mono text-[#737D75]">
+                      <span>Role: <strong className="text-[#F2F4EF]">{project.role}</strong></span>
+                      <span>·</span>
+                      <span>{project.timeline}</span>
+                    </div>
 
                     <p className="text-xs text-[#A3AAA3] leading-relaxed">
                       {project.problem}
@@ -271,7 +365,7 @@ export default function FeaturedProjects() {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-[#101413] border border-white/10 text-[#A3AAA3] hover:text-[#F2F4EF]"
+                        className="p-2 rounded-lg bg-[#101413] border border-white/10 text-[#A3AAA3] hover:text-[#F2F4EF] transition-colors"
                         title="View Source Code"
                       >
                         <GithubIcon className="w-3.5 h-3.5" />
@@ -282,7 +376,7 @@ export default function FeaturedProjects() {
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-lg bg-[#101413] border border-white/10 text-[#B8F36B] hover:text-[#D2FF91]"
+                          className="p-2 rounded-lg bg-[#101413] border border-white/10 text-[#B8F36B] hover:text-[#D2FF91] transition-colors"
                           title="Open Live Website"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />

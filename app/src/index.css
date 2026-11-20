@@ -72,3 +72,26 @@
   background-color: #171C19;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+/* Accessible focus styling for interactive elements (WCAG 2.1 AA) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Strict respect for prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
