@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CredentialStrip from './components/CredentialStrip';
+import Statistics from './components/Statistics';
 import About from './components/About';
+import EngineeringWorkflow from './components/EngineeringWorkflow';
 import FeaturedProjects from './components/FeaturedProjects';
 import Expertise from './components/Expertise';
 import ExperienceTimeline from './components/ExperienceTimeline';
@@ -16,8 +18,8 @@ export default function App() {
   // Track active section for clean navigation indicators
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'projects', 'expertise', 'experience', 'contact'];
-      const scrollPos = window.scrollY + 200;
+      const sections = ['hero', 'about', 'workflow', 'projects', 'expertise', 'experience', 'contact'];
+      const scrollPos = window.scrollY + 250;
 
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
@@ -33,19 +35,22 @@ export default function App() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div className="min-h-screen bg-[#080A0A] text-[#F2F4EF] selection:bg-[#B8F36B] selection:text-[#080A0A]">
-      {/* Top minimal sticky navigation */}
+      {/* Top minimal sticky navigation with scroll progress indicator */}
       <Navbar activeSection={activeSection} />
 
       {/* Main content flow */}
       <main>
         <Hero />
         <CredentialStrip />
+        <Statistics />
         <About />
+        <EngineeringWorkflow />
         <FeaturedProjects />
         <Expertise />
         <ExperienceTimeline />
@@ -55,7 +60,7 @@ export default function App() {
       {/* Footer */}
       <Footer />
 
-      {/* Redesigned minimal AI Guide */}
+      {/* Redesigned minimal AI Guide (minimized by default) */}
       <MascotCompanion />
     </div>
   );

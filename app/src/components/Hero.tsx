@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { ArrowRight, Download, MapPin, Terminal, Cpu, Database } from 'lucide-react';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
@@ -13,33 +15,53 @@ function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
 }
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <section id="hero" className="relative pt-32 sm:pt-40 pb-20 md:pb-28 overflow-hidden bg-subtle-grid">
+    <section id="hero" className="relative pt-28 sm:pt-36 pb-16 md:pb-24 overflow-hidden bg-subtle-grid">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
-          {/* Main Editorial Text Column */}
-          <div className="lg:col-span-7 space-y-6 md:space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Main Editorial Text Column (52-54% width) */}
+          <div className="lg:col-span-7 xl:col-span-7 space-y-6 md:space-y-8 text-left">
             {/* Category / Discipline Label */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#121714] border border-white/10 text-[11px] font-mono uppercase tracking-widest text-[#B8F36B]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#B8F36B]" />
+            <div
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#121714] border border-white/10 text-[11px] font-mono uppercase tracking-widest text-[#B8F36B] transition-all duration-700 ${
+                mounted || prefersReducedMotion ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+              }`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#B8F36B] animate-pulse" />
               <span>SOFTWARE DEVELOPER / PYTHON &amp; APPLIED AI</span>
             </div>
 
             {/* Confident Headline */}
-            <div className="space-y-3">
+            <div
+              className={`space-y-4 transition-all duration-700 delay-100 ${
+                mounted || prefersReducedMotion ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F2F4EF] leading-[1.12]">
                 I build software that makes complex work simpler.
               </h1>
               <p className="text-base sm:text-lg text-[#A3AAA3] leading-relaxed max-w-2xl font-normal">
-                I'm <span className="text-[#F2F4EF] font-medium">Zaw Myo Tun</span>, a software developer focused on Python backend engineering and practical AI applications. I enjoy building useful software, designing backend systems, and integrating AI technologies to solve real-world problems.
+                I'm <span className="text-[#F2F4EF] font-medium">Zaw Myo Tun</span>, a software developer focused on Python backend engineering and practical AI applications. I build robust APIs, intelligent workflows, and tools that solve real problems.
               </p>
             </div>
 
             {/* CTA Actions */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div
+              className={`flex flex-wrap items-center gap-3 pt-2 transition-all duration-700 delay-200 ${
+                mounted || prefersReducedMotion ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#B8F36B] text-[#080A0A] font-semibold text-sm hover:bg-[#D2FF91] transition-all hover:scale-[1.02] active:scale-[0.98] shadow-sm shadow-[#B8F36B]/20"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#B8F36B] text-[#080A0A] font-semibold text-sm hover:bg-[#D2FF91] transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md shadow-[#B8F36B]/20"
               >
                 <span>Explore Projects</span>
                 <ArrowRight className="w-4 h-4" />
@@ -48,7 +70,7 @@ export default function Hero() {
               <a
                 href="./Zaw_Myo_Tun_Portfolio.docx"
                 download
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#121714] border border-white/10 text-sm font-medium text-[#F2F4EF] hover:border-[#B8F36B]/50 hover:text-[#B8F36B] transition-all"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-[#121714] border border-white/10 text-sm font-medium text-[#F2F4EF] hover:border-[#B8F36B]/50 hover:text-[#B8F36B] transition-all"
               >
                 <Download className="w-4 h-4 text-[#A3AAA3]" />
                 <span>Download Resume</span>
@@ -58,7 +80,7 @@ export default function Hero() {
                 href="https://github.com/Z-Dev-Coder"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-[#121714] border border-white/10 text-sm font-medium text-[#A3AAA3] hover:text-[#F2F4EF] hover:border-white/20 transition-all"
+                className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-[#121714] border border-white/10 text-sm font-medium text-[#A3AAA3] hover:text-[#F2F4EF] hover:border-white/20 transition-all"
                 aria-label="GitHub Profile"
               >
                 <GithubIcon className="w-4 h-4" />
@@ -67,7 +89,11 @@ export default function Hero() {
             </div>
 
             {/* Technical Focus Highlights */}
-            <div className="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div
+              className={`pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-3 gap-4 transition-all duration-700 delay-300 ${
+                mounted || prefersReducedMotion ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
               <div className="flex items-start gap-2.5">
                 <Terminal className="w-4 h-4 text-[#B8F36B] shrink-0 mt-0.5" />
                 <div>
@@ -94,60 +120,59 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Editorial Profile & Grounding Panel */}
-          <div className="lg:col-span-5 flex flex-col items-center lg:items-end">
-            <div className="w-full max-w-md surface-card rounded-2xl p-6 space-y-6 relative overflow-hidden">
-              {/* Subtle top indicator bar */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-[#B8F36B]/60" />
+          {/* Right Column: LARGE DOMINANT HERO PORTRAIT (46-48% width) */}
+          <div className="lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end">
+            <div
+              className={`relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[500px] xl:max-w-[520px] aspect-[4/5] rounded-3xl overflow-hidden border border-white/15 bg-[#121714] shadow-2xl shadow-black/80 transition-all duration-1000 ease-out ${
+                mounted || prefersReducedMotion
+                  ? 'opacity-100 scale-100 translate-y-0'
+                  : 'opacity-0 scale-95 translate-y-6'
+              }`}
+            >
+              {/* Subtle top-right lime corner glow */}
+              <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#B8F36B]/15 rounded-full blur-3xl pointer-events-none" />
 
-              {/* Profile Image & Identification */}
-              <div className="flex items-center gap-4">
-                <div className="relative shrink-0">
-                  <img
-                    src="./zaw_myo_tun.jpg"
-                    alt="Zaw Myo Tun portrait photograph"
-                    className="w-20 h-20 rounded-2xl object-cover border border-white/10 shadow-md"
-                  />
-                  <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#B8F36B] border-2 border-[#080A0A]" title="Open to work" />
-                </div>
+              {/* The Genuine Profile Photograph (Centered, natural portrait framing) */}
+              <img
+                src="./zaw_myo_tun.jpg"
+                alt="Zaw Myo Tun — Junior Software Developer"
+                className="w-full h-full object-cover object-[center_20%] transition-transform duration-700 hover:scale-[1.02]"
+              />
 
-                <div className="min-w-0">
-                  <h2 className="text-lg font-bold text-[#F2F4EF] tracking-tight">Zaw Myo Tun</h2>
-                  <p className="text-xs font-mono text-[#B8F36B]">Junior Software Developer</p>
-                  <div className="flex items-center gap-1.5 text-xs text-[#A3AAA3] mt-1">
-                    <MapPin className="w-3.5 h-3.5 text-[#737D75]" />
-                    <span>Mandalay, Myanmar</span>
+              {/* Bottom Subtle Gradient Overlay with Integrated Credentials */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#080A0A] via-[#080A0A]/80 to-transparent pt-12 pb-5 px-5 sm:px-6 space-y-2 text-left">
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <h2 className="text-lg sm:text-xl font-bold text-[#F2F4EF] tracking-tight">
+                      Zaw Myo Tun
+                    </h2>
+                    <p className="text-xs font-mono text-[#B8F36B]">
+                      Junior Software Developer | Python &amp; Applied AI
+                    </p>
                   </div>
+
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#171C19]/90 border border-white/10 text-[10px] font-mono text-[#B8F36B] shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#B8F36B] animate-pulse" />
+                    <span>Open to Roles</span>
+                  </span>
+                </div>
+
+                <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-[#A3AAA3]">
+                  <span className="flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-[#737D75]" />
+                    <span>Mandalay, Myanmar</span>
+                  </span>
+                  <span className="font-mono text-[#737D75]">
+                    EduCLaaS HDSE (Merit)
+                  </span>
                 </div>
               </div>
 
-              {/* Quick Verified Status Info */}
-              <div className="space-y-2.5 pt-2 border-t border-white/10 text-xs">
-                <div className="flex justify-between py-1">
-                  <span className="text-[#737D75] font-mono">DEGREE</span>
-                  <span className="text-[#F2F4EF] font-medium text-right">BSc (Hons) Computing (Studying)</span>
-                </div>
-                <div className="flex justify-between py-1 border-t border-white/5">
-                  <span className="text-[#737D75] font-mono">DIPLOMA</span>
-                  <span className="text-[#B8F36B] font-medium text-right">HND Software Engineering (Merit)</span>
-                </div>
-                <div className="flex justify-between py-1 border-t border-white/5">
-                  <span className="text-[#737D75] font-mono">DIRECTION</span>
-                  <span className="text-[#F2F4EF] font-medium text-right">Python Backend &amp; Applied AI</span>
-                </div>
-                <div className="flex justify-between py-1 border-t border-white/5">
-                  <span className="text-[#737D75] font-mono">AVAILABILITY</span>
-                  <span className="text-[#B8F36B] font-medium text-right">Open to Local &amp; Remote Roles</span>
-                </div>
+              {/* Subtle architectural corner markers */}
+              <div className="absolute top-4 left-4 font-mono text-[10px] text-white/30 pointer-events-none">
+                [01. DEV_PORTRAIT]
               </div>
-
-              {/* Code/Architecture Inspiration quote */}
-              <div className="p-3.5 rounded-xl bg-[#080A0A]/70 border border-white/5 font-mono text-[11px] text-[#A3AAA3] leading-relaxed">
-                <span className="text-[#737D75]">// Core engineering philosophy:</span>
-                <p className="text-[#F2F4EF] mt-1">
-                  "Understand the root problem, structure clean data contracts, and integrate AI to assist real humans."
-                </p>
-              </div>
+              <div className="absolute top-4 right-4 w-2 h-2 border-t-2 border-r-2 border-[#B8F36B]/60 pointer-events-none" />
             </div>
           </div>
         </div>

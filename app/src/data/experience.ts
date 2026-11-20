@@ -15,7 +15,7 @@ export const EXPERIENCES: ExperienceItem[] = [
     id: 'isp-operations',
     role: 'Operations Management',
     company: 'Internet Service Provider (ISP)',
-    period: 'Verified Technology Experience',
+    period: '2022 — 2024',
     category: 'operations',
     categoryLabel: 'Tech Operations & Service Management',
     badge: 'Technology Operations',

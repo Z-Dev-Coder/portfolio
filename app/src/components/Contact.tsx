@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Mail, Copy, Check, Download, MapPin, ExternalLink, Phone } from 'lucide-react';
+import RevealOnScroll from './RevealOnScroll';
 
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
@@ -26,114 +27,120 @@ export default function Contact() {
     <section id="contact" className="py-24 border-b border-white/10 bg-[#080A0A] relative">
       <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-12">
         {/* Header */}
-        <div className="space-y-4 max-w-2xl mx-auto">
+        <RevealOnScroll direction="up" className="space-y-4 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 text-xs font-mono text-[#B8F36B] uppercase tracking-wider">
             <span>06/ GET IN TOUCH</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#F2F4EF] leading-tight">
-            Have a project in mind?<br />
+            Have a problem worth solving?<br />
             Let's build something meaningful.
           </h2>
           <p className="text-sm sm:text-base text-[#A3AAA3] leading-relaxed">
             I am actively open to junior software developer and applied AI roles. Whether you have an engineering opportunity, a project collaboration, or technical feedback, feel free to connect.
           </p>
-        </div>
+        </RevealOnScroll>
 
         {/* Contact Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {/* Email Card with 1-click copy */}
-          <div className="surface-card rounded-2xl p-6 sm:p-7 flex items-center justify-between gap-4 text-left">
-            <div className="flex items-center gap-3.5 min-w-0">
+          <RevealOnScroll direction="up" delay={100}>
+            <div className="surface-card rounded-2xl p-6 sm:p-7 flex items-center justify-between gap-4 text-left hover:border-[#B8F36B]/40 transition-all">
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="w-12 h-12 rounded-xl bg-[#171C19] border border-white/10 flex items-center justify-center text-[#B8F36B] shrink-0">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-mono uppercase tracking-wider text-[#737D75]">
+                    Direct Email Address
+                  </p>
+                  <a
+                    href="mailto:zawmyotun.kl@gmail.com"
+                    className="text-sm sm:text-base font-semibold text-[#F2F4EF] hover:text-[#B8F36B] transition-colors truncate block"
+                  >
+                    zawmyotun.kl@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <button
+                onClick={handleCopyEmail}
+                aria-label="Copy email address to clipboard"
+                className="p-2.5 rounded-xl bg-[#171C19] hover:bg-white/10 text-[#A3AAA3] hover:text-[#F2F4EF] border border-white/10 transition-all shrink-0 active:scale-95"
+                title="Copy email to clipboard"
+              >
+                {copiedEmail ? (
+                  <Check className="w-4 h-4 text-[#B8F36B]" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </button>
+            </div>
+          </RevealOnScroll>
+
+          {/* Direct Phone Card (Non-clickable, static text per user preference) */}
+          <RevealOnScroll direction="up" delay={200}>
+            <div className="surface-card rounded-2xl p-6 sm:p-7 flex items-center gap-3.5 text-left hover:border-[#B8F36B]/40 transition-all">
               <div className="w-12 h-12 rounded-xl bg-[#171C19] border border-white/10 flex items-center justify-center text-[#B8F36B] shrink-0">
-                <Mail className="w-5 h-5" />
+                <Phone className="w-5 h-5" />
               </div>
               <div className="min-w-0">
                 <p className="text-[11px] font-mono uppercase tracking-wider text-[#737D75]">
-                  Direct Email Address
+                  Direct Phone / Call
                 </p>
-                <a
-                  href="mailto:zawmyotun.kl@gmail.com"
-                  className="text-sm sm:text-base font-semibold text-[#F2F4EF] hover:text-[#B8F36B] transition-colors truncate block"
-                >
-                  zawmyotun.kl@gmail.com
-                </a>
+                <p className="text-sm sm:text-base font-semibold text-[#F2F4EF] select-all font-mono mt-0.5">
+                  09-943773771 / 09-793443483
+                </p>
               </div>
             </div>
-
-            <button
-              onClick={handleCopyEmail}
-              aria-label="Copy email address to clipboard"
-              className="p-2.5 rounded-xl bg-[#171C19] hover:bg-white/10 text-[#A3AAA3] hover:text-[#F2F4EF] border border-white/10 transition-all shrink-0 active:scale-95"
-              title="Copy email to clipboard"
-            >
-              {copiedEmail ? (
-                <Check className="w-4 h-4 text-[#B8F36B]" />
-              ) : (
-                <Copy className="w-4 h-4" />
-              )}
-            </button>
-          </div>
-
-          {/* Direct Phone Card (Non-clickable, static text per user preference) */}
-          <div className="surface-card rounded-2xl p-6 sm:p-7 flex items-center gap-3.5 text-left">
-            <div className="w-12 h-12 rounded-xl bg-[#171C19] border border-white/10 flex items-center justify-center text-[#B8F36B] shrink-0">
-              <Phone className="w-5 h-5" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-[11px] font-mono uppercase tracking-wider text-[#737D75]">
-                Direct Phone / Call
-              </p>
-              <p className="text-sm sm:text-base font-semibold text-[#F2F4EF] select-all font-mono mt-0.5">
-                09-943773771 / 09-793443483
-              </p>
-            </div>
-          </div>
+          </RevealOnScroll>
         </div>
 
         {/* Quick Credentials & Links Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto pt-6 border-t border-white/10 text-left">
-          <div className="space-y-1">
-            <p className="text-xs text-[#737D75] font-mono uppercase">GitHub Profile</p>
-            <a
-              href="https://github.com/Z-Dev-Coder"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-semibold text-[#B8F36B] hover:underline inline-flex items-center gap-1"
-            >
-              <GithubIcon className="w-3.5 h-3.5" />
-              <span>Z-Dev-Coder</span>
-              <ExternalLink className="w-3 h-3 ml-0.5" />
-            </a>
-          </div>
+        <RevealOnScroll direction="up" delay={300}>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto pt-6 border-t border-white/10 text-left">
+            <div className="space-y-1">
+              <p className="text-xs text-[#737D75] font-mono uppercase">GitHub Profile</p>
+              <a
+                href="https://github.com/Z-Dev-Coder"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-[#B8F36B] hover:underline inline-flex items-center gap-1"
+              >
+                <GithubIcon className="w-3.5 h-3.5" />
+                <span>Z-Dev-Coder</span>
+                <ExternalLink className="w-3 h-3 ml-0.5" />
+              </a>
+            </div>
 
-          <div className="space-y-1">
-            <p className="text-xs text-[#737D75] font-mono uppercase">Current Status</p>
-            <p className="text-sm font-semibold text-[#B8F36B] inline-flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#B8F36B] animate-pulse" />
-              <span>Open to Work</span>
-            </p>
-          </div>
+            <div className="space-y-1">
+              <p className="text-xs text-[#737D75] font-mono uppercase">Current Status</p>
+              <p className="text-sm font-semibold text-[#B8F36B] inline-flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#B8F36B] animate-pulse" />
+                <span>Open to Work</span>
+              </p>
+            </div>
 
-          <div className="space-y-1">
-            <p className="text-xs text-[#737D75] font-mono uppercase">Location</p>
-            <p className="text-sm font-semibold text-[#F2F4EF] flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-[#737D75]" />
-              <span>Mandalay, Myanmar</span>
-            </p>
-          </div>
+            <div className="space-y-1">
+              <p className="text-xs text-[#737D75] font-mono uppercase">Location</p>
+              <p className="text-sm font-semibold text-[#F2F4EF] flex items-center gap-1">
+                <MapPin className="w-3.5 h-3.5 text-[#737D75]" />
+                <span>Mandalay, Myanmar</span>
+              </p>
+            </div>
 
-          <div className="space-y-1">
-            <p className="text-xs text-[#737D75] font-mono uppercase">Curriculum Vitae</p>
-            <a
-              href="./Zaw_Myo_Tun_Portfolio.docx"
-              download
-              className="text-sm font-semibold text-[#F2F4EF] hover:text-[#B8F36B] transition-colors inline-flex items-center gap-1"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download DOCX</span>
-            </a>
+            <div className="space-y-1">
+              <p className="text-xs text-[#737D75] font-mono uppercase">Curriculum Vitae</p>
+              <a
+                href="./Zaw_Myo_Tun_Portfolio.docx"
+                download
+                className="text-sm font-semibold text-[#F2F4EF] hover:text-[#B8F36B] transition-colors inline-flex items-center gap-1"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Download DOCX</span>
+              </a>
+            </div>
           </div>
-        </div>
+        </RevealOnScroll>
       </div>
     </section>
   );
