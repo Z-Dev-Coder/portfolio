@@ -367,6 +367,7 @@ export default function FeaturedProjects() {
                         rel="noopener noreferrer"
                         className="p-2 rounded-lg bg-[#101413] border border-white/10 text-[#A3AAA3] hover:text-[#F2F4EF] transition-colors"
                         title="View Source Code"
+                        aria-label={`View ${project.title} source code on GitHub`}
                       >
                         <GithubIcon className="w-3.5 h-3.5" />
                       </a>
@@ -378,6 +379,7 @@ export default function FeaturedProjects() {
                           rel="noopener noreferrer"
                           className="p-2 rounded-lg bg-[#101413] border border-white/10 text-[#B8F36B] hover:text-[#D2FF91] transition-colors"
                           title="Open Live Website"
+                          aria-label={`Open live website for ${project.title}`}
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                         </a>

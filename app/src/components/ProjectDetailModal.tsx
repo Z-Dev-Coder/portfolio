@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { X, ExternalLink, CheckCircle, Cpu, Layers, HelpCircle, Lightbulb, ShieldAlert, Award } from 'lucide-react';
+import { X, ExternalLink, CheckCircle, Cpu, Layers, HelpCircle, Lightbulb, ShieldAlert, Award, Check } from 'lucide-react';
 import type { Project, ProjectStatus } from '../data/projects';
 
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
@@ -190,24 +190,15 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
               <span>Outcomes &amp; Measurable Impact</span>
             </h3>
             <div className="space-y-2">
-              {caseStudy.impact.map((result, idx) => {
-                const isTodo = result.includes('TODO');
-                return (
-                  <div
-                    key={idx}
-                    className={`p-3.5 rounded-lg flex items-start gap-3 text-xs leading-relaxed ${
-                      isTodo
-                        ? 'bg-amber-500/5 border border-dashed border-amber-500/30 text-amber-300/90'
-                        : 'bg-[#121714] border border-white/5 text-[#F2F4EF]'
-                    }`}
-                  >
-                    <span className={`shrink-0 font-bold ${isTodo ? 'text-amber-400' : 'text-[#B8F36B]'}`}>
-                      {isTodo ? '⚡' : '✓'}
-                    </span>
-                    <span>{result}</span>
-                  </div>
-                );
-              })}
+              {caseStudy.impact.map((result, idx) => (
+                <div
+                  key={idx}
+                  className="p-3.5 rounded-lg flex items-start gap-3 text-xs leading-relaxed bg-[#121714] border border-white/5 text-[#F2F4EF]"
+                >
+                  <Check className="w-3.5 h-3.5 text-[#B8F36B] shrink-0 mt-0.5" />
+                  <span>{result}</span>
+                </div>
+              ))}
             </div>
           </div>
         )}

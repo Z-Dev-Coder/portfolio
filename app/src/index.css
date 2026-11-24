@@ -27,6 +27,14 @@
     color: #F2F4EF;
     overflow-x: hidden;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: rgba(184, 243, 107, 0.25);
+    color: #F2F4EF;
   }
 
   code, pre {

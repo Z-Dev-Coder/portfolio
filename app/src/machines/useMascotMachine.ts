@@ -6,7 +6,7 @@ export type MascotEyeState = 'normal' | 'wink' | 'happy';
 
 export const MASCOT_QUOTES = [
   "Hi! I'm Byte, Zaw's portfolio guide. How can I help you navigate? 👋",
-  "Explore Recap Studio — Zaw's desktop AI suite combining Faster-Whisper, Gemini, and FFmpeg! 🎬",
+  "Explore Recap Studio — Zaw's desktop AI suite featuring Resource Hub discovery, Faster-Whisper, and FFmpeg!",
   "JumpStart integrates LangGraph state graphs with PostgreSQL pgvector RAG for retail support.",
   "English Coach AI provides CEFR diagnostic learning using self-hosted Ollama LLMs with $0 cloud API cost.",
   "Zaw is currently completing a BSc in Computing and is open to Junior Software & AI roles! 🚀",

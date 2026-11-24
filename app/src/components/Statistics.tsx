@@ -34,7 +34,7 @@ export default function Statistics() {
                 </div>
 
                 <div>
-                  <div className="text-3xl sm:text-4xl font-bold font-mono tracking-tight text-[#F2F4EF] flex items-baseline gap-1">
+                  <div className="text-3xl sm:text-4xl font-bold font-mono tracking-tight text-[#F2F4EF] flex items-baseline gap-1 tabular-nums">
                     {stat.isDateRange ? (
                       <span className="text-xl sm:text-2xl text-[#B8F36B]">{stat.dateRangeText}</span>
                     ) : (
